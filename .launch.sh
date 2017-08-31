@@ -2,6 +2,6 @@
 set -e
 cd "$(dirname "$0")"
 
-X &
+sudo X &
 export DISPLAY=:0
 npm start
