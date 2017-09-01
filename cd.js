@@ -1,6 +1,7 @@
 const electron = require("electron");
 const https = require("https");
 const WebSocket = require("ws");
+const compiler = require("./compiler");
 
 module.exports.init = (repo, window, callback) => {
     window.loadURL("https://github.com/login");
@@ -29,10 +30,15 @@ module.exports.init = (repo, window, callback) => {
                         let ws = new WebSocket(webSocketUrl);
                         ws.on("open", () => {
                             ws.send(`subscribe:repo:${repoId}:post-receive:${userId}`);
+                            console.log("Listening for code changes...");
                         });
                         ws.on("message", data => {
                             json = JSON.parse(data);
                             console.log(json[1].reason);
+                            electron.ipcMain.emit("github-cd-start");
+                            compiler.compile(() => {
+                                compiler.restart();
+                            }, () => electron.ipcMain.emit("github-cd-fail"));
                         });
                     });
                 });
