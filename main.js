@@ -1,18 +1,21 @@
 const electron = require("electron");
 const path = require("path");
 const url = require("url");
+const cd = require("./cd");
 
 var mainWindow;
 
 function createWindow () {
     mainWindow = new electron.BrowserWindow({
-        "kiosk": true
+        "show": false
     });
-    mainWindow.loadURL(url.format({
-        "pathname": path.join(__dirname, "build/index.html"),
-        "protocol": "file:",
-        "slashes": true
-    }));
+    cd.init("desotohs/hall-of-fame", mainWindow, () => {
+        mainWindow.loadURL(`file:///${__dirname}/build/index.html`);
+        mainWindow.webContents.once("did-finish-load", () => {
+            mainWindow.show();
+            mainWindow.setKiosk(true);
+        });
+    });
     mainWindow.on("closed", function () {
         mainWindow = null;
     });
