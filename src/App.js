@@ -1,6 +1,7 @@
 import React from "react";
 import logo from "./logo.svg";
 import "./App.css";
+import CDNotification from "./CDNotification";
 
 export default class App extends React.Component {
     render() {
@@ -13,6 +14,7 @@ export default class App extends React.Component {
                 <p className="App-intro">
                     To get started, edit <code>src/App.js</code> and save to reload.
                 </p>
+                <CDNotification />
             </div>
         );
     }
