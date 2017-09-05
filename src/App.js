@@ -2,6 +2,7 @@ import React from "react";
 import logo from "./logo.svg";
 import "./App.css";
 import CDNotification from "./CDNotification";
+import "materialize-css/dist/css/materialize.css";
 
 export default class App extends React.Component {
     render() {
