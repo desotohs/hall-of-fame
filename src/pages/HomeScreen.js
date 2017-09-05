@@ -4,10 +4,14 @@ import "./HomeScreen.css";
 
 
 export default class HomeScreen extends React.Component {
+    componentDidMount() {
+        this.video.play();
+    }
+
     render() {
         return (
             <div className="homescreen">
-                <video controls autoplay loop>
+                <video loop ref={el => this.video = el}>
                     <source src={video} type="video/webm"/>
                 </video>
             </div>
