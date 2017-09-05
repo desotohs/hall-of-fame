@@ -1,5 +1,5 @@
 import React from "react";
-import logo from "./logo.svg";
+import {BrowserRouter, Switch, Route} from "react-router-dom";
 import HomeScreen from "./pages/HomeScreen.js"
 import "./App.css";
 import CDNotification from "./CDNotification";
@@ -9,7 +9,11 @@ export default class App extends React.Component {
     render() {
         return (
             <div>
-                <HomeScreen />
+                <BrowserRouter>
+                    <Switch>
+                        <Route path="/" exact component={HomeScreen} />
+                    </Switch>
+                </BrowserRouter>
                 <CDNotification />
             </div>
         );
