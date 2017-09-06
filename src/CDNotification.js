@@ -1,5 +1,4 @@
 import React from "react";
-const electron = window.require ? require("electron") : null;
 
 export default class CDNotification extends React.Component {
     constructor(props) {
@@ -10,8 +9,8 @@ export default class CDNotification extends React.Component {
             "lastFailed": false
         };
         let on;
-        if (electron) {
-            on = electron.ipcRenderer.on.bind(electron.ipcRenderer);
+        if (window.electron) {
+            on = window.electron.ipcRenderer.on.bind(window.electron.ipcRenderer);
         } else {
             window.eventListeners = window.eventListeners || {};
             on = (ev, callback) => window.eventListeners[ev] = callback;

@@ -11,6 +11,7 @@ function createWindow () {
     mainWindow = new electron.BrowserWindow({
         "show": false
     });
+    let error = false;
     cd.init("desotohs/hall-of-fame", mainWindow, () => {
         let repo, ourRef, theirRef;
         nodegit.Repository.open(__dirname).then(_repo => {
@@ -24,8 +25,12 @@ function createWindow () {
         }).then(_theirRef => {
             theirRef = _theirRef.target();
             return repo.mergeBranches("master", "origin/master");
+        }).catch(() => {
+            error = true;
         }).done(() => {
-            if (!ourRef.equal(theirRef)) {
+            if (error) {
+                mainWindow.loadURL(`file:///${__dirname}/build/index.html`);
+            } else if (!ourRef.equal(theirRef)) {
                 compiler.compile(() => compiler.restart(), () => {
                     mainWindow.loadURL(`file:///${__dirname}/build/index.html`);
                 });

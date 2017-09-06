@@ -11,7 +11,7 @@ export default class App extends React.Component {
             <div>
                 <BrowserRouter>
                     <Switch>
-                        <Route path="/" exact component={HomeScreen} />
+                        <Route component={HomeScreen} />
                     </Switch>
                 </BrowserRouter>
                 <CDNotification />
