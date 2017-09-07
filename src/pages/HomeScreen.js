@@ -9,7 +9,7 @@ class Video extends React.Component {
 
     render() {
         return (
-            <video loop ref={el => this.video = el} className={this.props.className}>
+            <video controls muted loop ref={el => this.video = el} className={this.props.className}>
                 <source src={video} type="video/webm"/>
             </video>
         );
