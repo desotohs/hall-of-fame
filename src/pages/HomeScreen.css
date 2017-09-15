@@ -24,4 +24,14 @@
     border-radius: 20px;
     color: #FFFFFF;
     font-size: 3em;
+    margin: 1.25vw;
+    float: left;
+}
+
+.homescreen .container
+{
+    position: fixed;
+    width: 100vw;
+    padding: 1.25vw;
+    bottom: 0%;
 }

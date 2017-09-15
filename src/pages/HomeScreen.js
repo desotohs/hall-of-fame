@@ -22,14 +22,27 @@ export default class HomeScreen extends React.Component {
             <div className="homescreen">
                 <Video className="blur" />
                 <Video />
-                <div className="controls">
-                    <div className="control">
-                        Hall of Fame
+                <div className="container">
+                        <div className="control">
+                            State Champions
+                        </div>
+                        <div className="control">
+                            State Champions
+                        </div>
+                        <div className="control">
+                            Hall of Fame
+                        </div>
+                        <div className="control">
+                            State Champions
+                        </div>
+                        <div className="control">
+                            State Champions
+                        </div>
+                        <div className="control">
+                            State Champions
+                        </div>
                     </div>
-                    <div className="control">
-                        State Champions
-                    </div>
-                </div>
+                
             </div>
         );
     }
