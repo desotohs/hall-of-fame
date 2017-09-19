@@ -6,3 +6,25 @@
     font-family: "Kimberley";
     src: url("/kimberley.ttf") format("truetype");
 }
+
+/* :root {
+    dhsgreen: #00492c;
+    dhsgrey: #a1aab2;
+    dhsgray: dhsgrey;
+} */
+
+.backgreen {
+    background-color: #00492c;
+}
+
+.backgrey, .backgray {
+    background-color: #a1aab2;
+}
+
+.foregreen {
+    color: #00492c;
+}
+
+.foregrey, .foregray {
+    color: #a1aab2;
+}
