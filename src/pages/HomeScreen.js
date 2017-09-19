@@ -1,5 +1,6 @@
 import React from "react";
 import BackgroundVideo from "../components/BackgroundVideo";
+import icon from "../media/images/logo.png";
 import "./HomeScreen.css";
 
 export default class HomeScreen extends React.Component {
@@ -9,22 +10,25 @@ export default class HomeScreen extends React.Component {
                 <BackgroundVideo />
                 <div className="container">
                         <div className="control">
-                            State Champions
+                            <img className="iconImage" src={icon} alt="test" />
                         </div>
                         <div className="control">
-                            State Champions
+                            <img className="iconImage" src={icon} alt="test" />
                         </div>
                         <div className="control">
-                            Hall of Fame
+                            <img className="iconImage" src={icon} alt="test" />
+
                         </div>
                         <div className="control">
-                            State Champions
+                            <img className="iconImage" src={icon} alt="test" />
+
                         </div>
                         <div className="control">
-                            State Champions
+                            <img className="iconImage" src={icon} alt="test" />
+
                         </div>
                         <div className="control">
-                            State Champions
+                            <img className="iconImage" src={icon} alt="test" />
                         </div>
                     </div>
                 

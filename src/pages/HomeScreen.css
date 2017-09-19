@@ -20,3 +20,11 @@
     padding: 1.25vw;
     bottom: 0%;
 }
+
+.homescreen .iconImage
+{
+    width: 26vw; 
+    vertical-align: middle;
+    margin-left: auto;
+    margin-right: auto 
+}
