@@ -1,5 +1,6 @@
 import React from "react";
 import video from "../media/video/fullscreenvideo.mp4";
+import icon from "../media/images/logo.png";
 import "./HomeScreen.css";
 
 class Video extends React.Component {
@@ -24,22 +25,25 @@ export default class HomeScreen extends React.Component {
                 <Video />
                 <div className="container">
                         <div className="control">
-                            Hall of Fame
+                            <img className="iconImage" src={icon} alt="test" />
                         </div>
                         <div className="control">
-                            State Champions
+                            <img className="iconImage" src={icon} alt="test" />
                         </div>
                         <div className="control">
-                            All Time Records
+                            <img className="iconImage" src={icon} alt="test" />
+
                         </div>
                         <div className="control">
-                            Individual Honors
+                            <img className="iconImage" src={icon} alt="test" />
+
                         </div>
                         <div className="control">
-                            Team Database
+                            <img className="iconImage" src={icon} alt="test" />
+
                         </div>
                         <div className="control">
-                            Senior Class Photos
+                            <img className="iconImage" src={icon} alt="test" />
                         </div>
                     </div>
                 
