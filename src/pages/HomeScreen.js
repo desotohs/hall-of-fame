@@ -1,27 +1,12 @@
 import React from "react";
-import video from "../media/video/fullscreenvideo.mp4";
+import BackgroundVideo from "../components/BackgroundVideo";
 import "./HomeScreen.css";
-
-class Video extends React.Component {
-    componentDidMount() {
-        this.video.play();
-    }
-
-    render() {
-        return (
-            <video controls muted loop ref={el => this.video = el} className={this.props.className}>
-                <source src={video} type="video/webm"/>
-            </video>
-        );
-    }
-}
 
 export default class HomeScreen extends React.Component {
     render() {
         return (
             <div className="homescreen">
-                <Video className="blur" />
-                <Video />
+                <BackgroundVideo />
                 <div className="container">
                         <div className="control">
                             State Champions
