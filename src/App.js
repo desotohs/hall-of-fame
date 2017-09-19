@@ -5,6 +5,7 @@ import StateChampions from "./pages/StateChampions";
 import "./App.css";
 import CDNotification from "./CDNotification";
 import "materialize-css/dist/css/materialize.css";
+import "./database/GDrive";
 
 export default class App extends React.Component {
     render() {
@@ -13,6 +14,7 @@ export default class App extends React.Component {
                 <BrowserRouter>
                     <Switch>
                         <Route path="/statechamps" component={StateChampions} />
+                        <Route path="/statechampions" component={StateChampions} />
                         <Route component={HomeScreen} />
                     </Switch>
                 </BrowserRouter>
