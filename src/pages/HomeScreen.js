@@ -24,22 +24,22 @@ export default class HomeScreen extends React.Component {
                 <Video />
                 <div className="container">
                         <div className="control">
-                            State Champions
-                        </div>
-                        <div className="control">
-                            State Champions
-                        </div>
-                        <div className="control">
                             Hall of Fame
                         </div>
                         <div className="control">
                             State Champions
                         </div>
                         <div className="control">
-                            State Champions
+                            All Time Records
                         </div>
                         <div className="control">
-                            State Champions
+                            Individual Honors
+                        </div>
+                        <div className="control">
+                            Team Database
+                        </div>
+                        <div className="control">
+                            Senior Class Photos
                         </div>
                     </div>
                 
