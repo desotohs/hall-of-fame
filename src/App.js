@@ -14,6 +14,7 @@ export default class App extends React.Component {
                 <BrowserRouter>
                     <Switch>
                         <Route path="/statechamps" component={StateChampions} />
+                        <Route path="/statechampions" component={StateChampions} />
                         <Route component={HomeScreen} />
                     </Switch>
                 </BrowserRouter>
