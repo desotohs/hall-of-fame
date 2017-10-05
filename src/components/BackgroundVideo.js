@@ -53,7 +53,7 @@ export default class BackgroundVideo extends React.Component {
         return (
             <div className="background-video">
                 <canvas width={document.body.clientWidth} height={document.body.clientHeight} ref={el => this.canvas = el} />
-                <video src={video} loop ref={el => this.video = el} />
+                <video src={video} loop muted ref={el => this.video = el} />
             </div>
         );
     }
