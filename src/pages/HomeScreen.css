@@ -5,7 +5,8 @@
 .homescreen .container {
     position: fixed;
     width: 100vw;
-    padding: 1.25vw;
+    padding-left: 2vw;
+    padding-right: 2vw;
     bottom: 0%;
 }
 
@@ -16,6 +17,7 @@
     background-color: rgba(255, 255, 255, 0.125);
     border-radius: 20px;
     color: #FFFFFF;
+    margin: 1vw;
     font-size: 3em;
     float: left;
 }
