@@ -1,0 +1,24 @@
+.seniorphotos .controls {
+    background-color: rgba(0, 0, 0, 0.25);
+}
+
+.seniorphotos .container {
+    position: fixed;
+    width: 100vw;
+    padding-left: 2vw;
+    padding-right: 2vw;
+    bottom: 0%;
+}
+
+.seniorphotos .control {
+    width: 20vw;
+    height: 10vw;
+    border: 5px solid #FFFFFF;
+    background-color: rgba(255, 255, 255, 0.125);
+    border-radius: 20px;
+    color: #FFFFFF;
+    margin: 1vw;
+    font-size: 3em;
+    text-align: center;
+    float: left;
+}
