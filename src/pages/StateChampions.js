@@ -24,67 +24,67 @@ export default class StateChampions extends React.Component {
                 <BackgroundVideo />
                 <div className="container">
                 <div className="control">
-                    <Link to="/band">
+                    <Link to="/statechampions/band">
                         <img className="iconImage" src={bandIcon} alt="Band" />
                     </Link>
                 </div>
                 <div className="control">
-                    <Link to="/boys-basketball">
+                    <Link to="/statechampions/boys-basketball">
                         <img className="iconImage" src={boysBasketballIcon} alt="Boys Basketball" />
                     </Link>
                 </div>
                 <div className="control">
-                    <Link to="/girls-basketball">
+                    <Link to="/statechampions/girls-basketball">
                         <img className="iconImage" src={girlsBasketballIcon} alt="Girls Basketball" />
                     </Link>
                 </div>
                 <div className="control">
-                    <Link to="/bowling">
+                    <Link to="/statechampions/bowling">
                         <img className="iconImage" src={bowlingIcon} alt="Bowling" />
                     </Link>
                 </div>
                 <div className="control">
-                    <Link to="/cheer">
+                    <Link to="/statechampions/cheer">
                         <img className="iconImage" src={cheerIcon} alt="Cheer" />
                     </Link>
                 </div>
                 <div className="control">
-                    <Link to="/debate">
+                    <Link to="/statechampions/debate">
                         <img className="iconImage" src={debateIcon} alt="Debate" />
                     </Link>
                 </div>
                 <div className="control">
-                    <Link to="/boys-golf">
+                    <Link to="/statechampions/boys-golf">
                         <img className="iconImage" src={boysGolfIcon} alt="Boys Golf" />
                     </Link>
                 </div>
                 <div className="control">
-                    <Link to="/scholars-bowl">
+                    <Link to="/statechampions/scholars-bowl">
                         <img className="iconImage" src={scholarsBowlIcon} alt="Scholars Bowl" />
                     </Link>
                 </div>
                 <div className="control">
-                    <Link to="/soccer">
+                    <Link to="/statechampions/soccer">
                         <img className="iconImage" src={soccerIcon} alt="Soccer" />
                     </Link>
                 </div>
                 <div className="control">
-                    <Link to="/girls-swim">
+                    <Link to="/statechampions/girls-swim">
                         <img className="iconImage" src={girlsSwimIcon} alt="Girls Swim" />
                     </Link>
                 </div>
                 <div className="control">
-                    <Link to="/tennis">
+                    <Link to="/statechampions/tennis">
                         <img className="iconImage" src={tennisIcon} alt="Tennis" />
                     </Link>
                 </div>
                 <div className="control">
-                    <Link to="/theatre">
+                    <Link to="/statechampions/theatre">
                         <img className="iconImage" src={theatreIcon} alt="Theatre" />
                     </Link>
                 </div>
                 <div className="control">
-                    <Link to="/volleyball">
+                    <Link to="/statechampions/volleyball">
                         <img className="iconImage" src={volleyballIcon} alt="Volleyball" />
                     </Link>
                 </div>

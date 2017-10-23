@@ -2,6 +2,7 @@ import React from "react";
 import {BrowserRouter, Switch, Route} from "react-router-dom";
 import HomeScreen from "./pages/HomeScreen";
 import StateChampions from "./pages/StateChampions";
+import StateChampionClubs from "./pages/StateChampionClub";
 import "./App.css";
 import CDNotification from "./CDNotification";
 import "materialize-css/dist/css/materialize.css";
@@ -13,7 +14,7 @@ export default class App extends React.Component {
             <div>
                 <BrowserRouter>
                     <Switch>
-                        <Route path="/statechamps" component={StateChampions} />
+                        <Route path="/statechampions/:club" component={StateChampionClubs} />
                         <Route path="/statechampions" component={StateChampions} />
                         <Route component={HomeScreen} />
                     </Switch>
