@@ -1,19 +1,31 @@
 .statechampions .controls {
-    position: fixed;
-    left: 0;
-    top: 0;
-    width: 100vw;
-    height: 100vh;
-}
-.statechampions .controls {
     background-color: rgba(0, 0, 0, 0.25);
 }
+
+.statechampions .container {
+    position: fixed;
+    width: 100vw;
+    padding-left: 2vw;
+    padding-right: 2vw;
+    bottom: 0%;
+}
+
 .statechampions .control {
     width: 20vw;
-    height: 12vh;
+    height: 20vw;
     border: 5px solid #FFFFFF;
     background-color: rgba(255, 255, 255, 0.125);
     border-radius: 20px;
     color: #FFFFFF;
+    margin: 1vw;
     font-size: 3em;
+    float: left;
+}
+
+.statechampions .iconImage {
+    width: 17vw;
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
