@@ -1,8 +1,17 @@
 import React from "react";
-import video from "../media/video/fullscreenvideo.mp4";
+import VideoManager from "../database/VideoManager";
 import "./BackgroundVideo.css";
 
 export default class BackgroundVideo extends React.Component {
+    constructor(props) {
+        super(props);
+        this.manager = new VideoManager(this);
+        this.manager.get(video => {
+            this.videoFile = video;
+            this.forceUpdate(() => this.video ? this.video.play() : 0);
+        });
+    }
+
     componentDidMount() {
         this.ctx = this.canvas.getContext("2d");
         this.video.addEventListener("play", () => {
@@ -11,7 +20,7 @@ export default class BackgroundVideo extends React.Component {
             var renderedFrames = 0;
             this.iid = setInterval(() => {
                 if (this.video.isEnded) {
-                    // TODO change the video
+                    this.manager.get();
                 } else {
                     let x, y, width, height;
                     if (videoAspect > documentAspect) {
@@ -53,7 +62,7 @@ export default class BackgroundVideo extends React.Component {
         return (
             <div className="background-video">
                 <canvas width={document.body.clientWidth} height={document.body.clientHeight} ref={el => this.canvas = el} />
-                <video src={video} loop muted ref={el => this.video = el} />
+                <video src={this.videoFile} loop muted ref={el => this.video = el} />
             </div>
         );
     }
