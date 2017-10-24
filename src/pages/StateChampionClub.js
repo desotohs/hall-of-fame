@@ -1,5 +1,8 @@
+// TODO a bunch of this file needs to be changed to use the new `IconManager`
+
 import React from "react";
 import BackgroundVideo from "../components/BackgroundVideo";
+/*
 import band from "../media/images/Band.png";
 import boysbasketball from "../media/images/Basketball.Boys.png";
 import girlsbasketball from "../media/images/Basketball.Girls.png";
@@ -13,6 +16,8 @@ import soccer from "../media/images/Soccer.png";
 import tennis from "../media/images/Tennis.png";
 import theatre from "../media/images/Theatre.png";
 import volleyball from "../media/images/Volleyball.png";
+*/
+import image from "../database/failover/image-error.png";
 import "./StateChampionClub.css";
 
 export default class StateChampions extends React.Component {
@@ -23,15 +28,17 @@ export default class StateChampions extends React.Component {
                     doTitle(this.props.match.params.club)
                 } </h2> */}
                 <BackgroundVideo />
-                <img className="iconImage" src={images[doImageName(this.props.match.params.club)]} alt={doImageName(this.props.match.params.club)} />
+                <img className="iconImage" src={/*images[doImageName(this.props.match.params.club)]*/ image} alt={doImageName(this.props.match.params.club)} />
             </div>
         );
     }
      
 }
+/*
 var images = {"band": band, "boysbasketball": boysbasketball, "girlsbasketball": girlsbasketball,
     "bowling": bowling, "boysgolf": boysgolf, "cheer": cheer, "debate": debate,"girlsswim": girlsswim,
     "scholarsbowl": scholarsbowl, "soccer": soccer, "tennis": tennis, "theatre": theatre, "volleyball": volleyball};
+*/
 
 function doTitle(club){
     var words = club.split("-")

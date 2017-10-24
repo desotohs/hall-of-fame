@@ -19,26 +19,28 @@ export default class BackgroundVideo extends React.Component {
             let documentAspect = this.canvas.width / this.canvas.height;
             var renderedFrames = 0;
             this.iid = setInterval(() => {
-                if (this.video.isEnded) {
-                    this.manager.get();
-                } else {
-                    let x, y, width, height;
-                    if (videoAspect > documentAspect) {
-                        width = this.canvas.width;
-                        height = this.canvas.width / videoAspect;
-                        x = 0;
-                        y = (this.canvas.height - height) / 2;
+                if (this.video) {
+                    if (this.video.isEnded) {
+                        this.manager.get();
                     } else {
-                        width = this.canvas.height * videoAspect;
-                        height = this.canvas.height;
-                        x = (this.canvas.width - width) / 2;
-                        y = 0;
+                        let x, y, width, height;
+                        if (videoAspect > documentAspect) {
+                            width = this.canvas.width;
+                            height = this.canvas.width / videoAspect;
+                            x = 0;
+                            y = (this.canvas.height - height) / 2;
+                        } else {
+                            width = this.canvas.height * videoAspect;
+                            height = this.canvas.height;
+                            x = (this.canvas.width - width) / 2;
+                            y = 0;
+                        }
+                        this.ctx.filter = "blur(10px)";
+                        this.ctx.drawImage(this.video, 0, 0, this.canvas.width, this.canvas.height);
+                        this.ctx.filter = "none";
+                        this.ctx.drawImage(this.video, x, y, width, height);
+                        ++renderedFrames;
                     }
-                    this.ctx.filter = "blur(10px)";
-                    this.ctx.drawImage(this.video, 0, 0, this.canvas.width, this.canvas.height);
-                    this.ctx.filter = "none";
-                    this.ctx.drawImage(this.video, x, y, width, height);
-                    ++renderedFrames;
                 }
             }, 0);
             if (localStorage.debugVideoFPS) {

@@ -1,23 +1,28 @@
 import React from "react";
 import BackgroundVideo from "../components/BackgroundVideo";
-import { Link } from 'react-router-dom'
-import icon from "../media/images/logo.png";
-import bandIcon from "../media/images/Band.png";
-import boysBasketballIcon from "../media/images/Basketball.Boys.png";
-import girlsBasketballIcon from "../media/images/Basketball.Girls.png";
-import bowlingIcon from "../media/images/Bowling.png";
-import boysGolfIcon from "../media/images/Boys.Golf.png";
-import cheerIcon from "../media/images/Cheer.png";
-import debateIcon from "../media/images/Debate.png";
-import girlsSwimIcon from "../media/images/Girls Swim.png";
-import scholarsBowlIcon from "../media/images/Scholars Bowl.png";
-import soccerIcon from "../media/images/Soccer.png";
-import tennisIcon from "../media/images/Tennis.png";
-import theatreIcon from "../media/images/Theatre.png";
-import volleyballIcon from "../media/images/Volleyball.png";
+import { Link } from "react-router-dom";
+import IconManager from "../database/IconManager";
 import "./StateChampions.css";
 
 export default class StateChampions extends React.Component {
+    constructor(props) {
+        super(props);
+        const icons = new IconManager(this);
+        icons.get("Band", "bandIcon");
+        icons.get("Basketball.Boys", "boysBasketballIcon");
+        icons.get("Basketball.Girls", "girlsBasketballIcon");
+        icons.get("Bowling", "bowlingIcon");
+        icons.get("Boys.Golf", "boysGolfIcon");
+        icons.get("Cheer", "cheerIcon");
+        icons.get("Debate", "debateIcon");
+        icons.get("Girls Swim", "girlsSwimIcon");
+        icons.get("Scholars Bowl", "scholarsBowlIcon");
+        icons.get("Soccer", "soccerIcon");
+        icons.get("Tennis", "tennisIcon");
+        icons.get("Theatre", "theatreIcon");
+        icons.get("Volleyball", "volleyballIcon");
+    }
+
     render() {
         return (
             <div className="statechampions">
@@ -25,67 +30,67 @@ export default class StateChampions extends React.Component {
                 <div className="container">
                 <div className="control">
                     <Link to="/statechampions/band">
-                        <img className="iconImage" src={bandIcon} alt="Band" />
+                        <img className="iconImage" src={this.icons.bandIcon} alt="Band" />
                     </Link>
                 </div>
                 <div className="control">
                     <Link to="/statechampions/boys-basketball">
-                        <img className="iconImage" src={boysBasketballIcon} alt="Boys Basketball" />
+                        <img className="iconImage" src={this.icons.boysBasketballIcon} alt="Boys Basketball" />
                     </Link>
                 </div>
                 <div className="control">
                     <Link to="/statechampions/girls-basketball">
-                        <img className="iconImage" src={girlsBasketballIcon} alt="Girls Basketball" />
+                        <img className="iconImage" src={this.icons.girlsBasketballIcon} alt="Girls Basketball" />
                     </Link>
                 </div>
                 <div className="control">
                     <Link to="/statechampions/bowling">
-                        <img className="iconImage" src={bowlingIcon} alt="Bowling" />
+                        <img className="iconImage" src={this.icons.bowlingIcon} alt="Bowling" />
                     </Link>
                 </div>
                 <div className="control">
                     <Link to="/statechampions/cheer">
-                        <img className="iconImage" src={cheerIcon} alt="Cheer" />
+                        <img className="iconImage" src={this.icons.cheerIcon} alt="Cheer" />
                     </Link>
                 </div>
                 <div className="control">
                     <Link to="/statechampions/debate">
-                        <img className="iconImage" src={debateIcon} alt="Debate" />
+                        <img className="iconImage" src={this.icons.debateIcon} alt="Debate" />
                     </Link>
                 </div>
                 <div className="control">
                     <Link to="/statechampions/boys-golf">
-                        <img className="iconImage" src={boysGolfIcon} alt="Boys Golf" />
+                        <img className="iconImage" src={this.icons.boysGolfIcon} alt="Boys Golf" />
                     </Link>
                 </div>
                 <div className="control">
                     <Link to="/statechampions/scholars-bowl">
-                        <img className="iconImage" src={scholarsBowlIcon} alt="Scholars Bowl" />
+                        <img className="iconImage" src={this.icons.scholarsBowlIcon} alt="Scholars Bowl" />
                     </Link>
                 </div>
                 <div className="control">
                     <Link to="/statechampions/soccer">
-                        <img className="iconImage" src={soccerIcon} alt="Soccer" />
+                        <img className="iconImage" src={this.icons.soccerIcon} alt="Soccer" />
                     </Link>
                 </div>
                 <div className="control">
                     <Link to="/statechampions/girls-swim">
-                        <img className="iconImage" src={girlsSwimIcon} alt="Girls Swim" />
+                        <img className="iconImage" src={this.icons.girlsSwimIcon} alt="Girls Swim" />
                     </Link>
                 </div>
                 <div className="control">
                     <Link to="/statechampions/tennis">
-                        <img className="iconImage" src={tennisIcon} alt="Tennis" />
+                        <img className="iconImage" src={this.icons.tennisIcon} alt="Tennis" />
                     </Link>
                 </div>
                 <div className="control">
                     <Link to="/statechampions/theatre">
-                        <img className="iconImage" src={theatreIcon} alt="Theatre" />
+                        <img className="iconImage" src={this.icons.theatreIcon} alt="Theatre" />
                     </Link>
                 </div>
                 <div className="control">
                     <Link to="/statechampions/volleyball">
-                        <img className="iconImage" src={volleyballIcon} alt="Volleyball" />
+                        <img className="iconImage" src={this.icons.volleyballIcon} alt="Volleyball" />
                     </Link>
                 </div>
                 </div>
