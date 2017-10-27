@@ -13,10 +13,6 @@
 .statechampions .control {
     width: 20vw;
     height: 20vw;
-    border: 5px solid #FFFFFF;
-    background-color: rgba(255, 255, 255, 0.125);
-    border-radius: 20px;
-    color: #FFFFFF;
     margin: 1vw;
     font-size: 3em;
     float: left;
@@ -28,4 +24,8 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+}
+
+.statechampions .header {
+    margin: 1vw;
 }
