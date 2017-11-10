@@ -1,7 +1,7 @@
+const childProcess = require("child_process");
 const electron = require("electron");
 const https = require("https");
 const WebSocket = require("ws");
-const compiler = require("./compiler");
 
 module.exports.init = (repo, window, callback) => {
     window.loadURL("https://github.com/login");
@@ -36,9 +36,7 @@ module.exports.init = (repo, window, callback) => {
                             json = JSON.parse(data);
                             console.log(json[1].reason);
                             electron.ipcMain.emit("github-cd-start");
-                            compiler.compile(() => {
-                                compiler.restart();
-                            }, () => electron.ipcMain.emit("github-cd-fail"));
+                            childProcess.execFile(`${__dirname}/.reboot.sh`);
                         });
                     });
                 });
