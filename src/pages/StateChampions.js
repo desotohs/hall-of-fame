@@ -27,6 +27,7 @@ export default class StateChampions extends React.Component {
         return (
             <div className="statechampions">
                 <BackgroundVideo />
+                <h2 className="foregreen header">State Champs</h2>
                 <div className="container">
                 <div className="control">
                     <Link to="/statechampions/band">
@@ -46,11 +47,6 @@ export default class StateChampions extends React.Component {
                 <div className="control">
                     <Link to="/statechampions/bowling">
                         <img className="iconImage" src={this.icons.bowlingIcon} alt="Bowling" />
-                    </Link>
-                </div>
-                <div className="control">
-                    <Link to="/statechampions/cheer">
-                        <img className="iconImage" src={this.icons.cheerIcon} alt="Cheer" />
                     </Link>
                 </div>
                 <div className="control">
@@ -81,11 +77,6 @@ export default class StateChampions extends React.Component {
                 <div className="control">
                     <Link to="/statechampions/tennis">
                         <img className="iconImage" src={this.icons.tennisIcon} alt="Tennis" />
-                    </Link>
-                </div>
-                <div className="control">
-                    <Link to="/statechampions/theatre">
-                        <img className="iconImage" src={this.icons.theatreIcon} alt="Theatre" />
                     </Link>
                 </div>
                 <div className="control">

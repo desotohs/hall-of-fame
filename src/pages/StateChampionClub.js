@@ -2,6 +2,7 @@
 
 import React from "react";
 import BackgroundVideo from "../components/BackgroundVideo";
+import IconManager from "../database/IconManager";
 /*
 import band from "../media/images/Band.png";
 import boysbasketball from "../media/images/Basketball.Boys.png";
@@ -21,14 +22,20 @@ import image from "../database/failover/image-error.png";
 import "./StateChampionClub.css";
 
 export default class StateChampions extends React.Component {
+    constructor(props) {
+        super(props);
+        const icons = new IconManager(this);
+        icons.get(doTitle(this.props.match.params.club), doCamelCaseIcon(this.props.match.params.club));
+    }
+
     render() {
         return (
             <div className="statechampionclub">
-                {/* <h2 className="clubtitle"> {
-                    doTitle(this.props.match.params.club)
-                } </h2> */}
+                <h2 className="clubtitle"> {
+                    doCamelCaseIcon(this.props.match.params.club)
+                } </h2>
                 <BackgroundVideo />
-                <img className="iconImage" src={/*images[doImageName(this.props.match.params.club)]*/ image} alt={doImageName(this.props.match.params.club)} />
+                <img className="iconImage" src={/*images[doImageName(this.props.match.params.club)]*/ this.icons[doCamelCaseIcon(this.props.match.params.club)]} alt={doTitle(this.props.match.params.club)} />
             </div>
         );
     }
@@ -55,5 +62,14 @@ function doImageName(club){
     for(var i = 0; i < words.length; i++){
         result = result + words[i];
     }
-    return result
+    return result;
+}
+
+function doCamelCaseIcon(club){
+    var words = club.split("-");
+    var result = words[0];
+    for(var i = 1; i < words.length; i++){
+        result = result + words[i].charAt(0).toUpperCase() + words[i].slice(1);
+    }
+    return result + "Icon";
 }
