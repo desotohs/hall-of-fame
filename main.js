@@ -11,7 +11,10 @@ function createWindow () {
     mainWindow = new electron.BrowserWindow({
         "show": false,
         "width": 1920,
-        "height": 1080
+        "height": 1080,
+        "webPreferences": {
+            "webSecurity": false
+        }
     });
     let error = false;
     cd.init("desotohs/hall-of-fame", mainWindow, () => {
