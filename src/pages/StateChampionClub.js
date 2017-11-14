@@ -25,17 +25,19 @@ export default class StateChampions extends React.Component {
     constructor(props) {
         super(props);
         const icons = new IconManager(this);
-        icons.get(doTitle(this.props.match.params.club), doCamelCaseIcon(this.props.match.params.club));
+        // icons.get(doTitle(this.props.match.params.club), doCamelCaseIcon(this.props.match.params.club));
+        icons.get(doTitle(this.props.match.params.club), "icon");
     }
 
     render() {
+        console.log("." + doTitle(this.props.match.params.club) + ".");
         return (
             <div className="statechampionclub">
                 <h2 className="clubtitle"> {
-                    doCamelCaseIcon(this.props.match.params.club)
+                    doTitle(this.props.match.params.club)
                 } </h2>
                 <BackgroundVideo />
-                <img className="iconImage" src={/*images[doImageName(this.props.match.params.club)]*/ this.icons[doCamelCaseIcon(this.props.match.params.club)]} alt={doTitle(this.props.match.params.club)} />
+                <img className="iconImage" src={/*images[doImageName(this.props.match.params.club)]*/ this.icons.icon} alt={doTitle(this.props.match.params.club)} />
             </div>
         );
     }
@@ -53,6 +55,7 @@ function doTitle(club){
     for(var i = 0; i < words.length; i++){
         result = result + words[i].charAt(0).toUpperCase() + words[i].slice(1) + " ";
     }
+    result = result.substring(0,  result.length - 1);
     return result
 }
 

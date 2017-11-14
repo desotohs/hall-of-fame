@@ -9,10 +9,10 @@ export default class StateChampions extends React.Component {
         super(props);
         const icons = new IconManager(this);
         icons.get("Band", "bandIcon");
-        icons.get("Basketball.Boys", "boysBasketballIcon");
-        icons.get("Basketball.Girls", "girlsBasketballIcon");
+        icons.get("Boys Basketball", "boysBasketballIcon");
+        icons.get("Girls Basketball", "girlsBasketballIcon");
         icons.get("Bowling", "bowlingIcon");
-        icons.get("Boys.Golf", "boysGolfIcon");
+        icons.get("Boys Golf", "boysGolfIcon");
         icons.get("Cheer", "cheerIcon");
         icons.get("Debate", "debateIcon");
         icons.get("Girls Swim", "girlsSwimIcon");
