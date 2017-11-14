@@ -1,0 +1,18 @@
+language: node_js
+node_js:
+- node
+cache:
+  directories:
+  - node_modules
+script:
+- npm run build
+- npm test
+deploy:
+  provider: pages
+  skip_cleanup: true
+  github_token:
+    secure: TXpkAfp/xNtO8QbDQClw7Ed66HmM8AAZc8EWN6uT7N29TES0G5TPxW5BJyuDwiUMUgjiXAjFvEYMVWljL7klLyFDsACU2m1/YxVcfES835qOVbkP3zB1OFGc4bd+tC0bStwE6Xf422lZWwLfwrZHnWBgEGFN/K6qMIP3q6IJTrnzyfElyODmjHfkTJ7BWigmMFB4MzEWt26pYXR6MssDV6F425pncOBY0zOYA1tUFIBjOUNn6/6ah0DNKpbPZBz5S1svmk6rrss/RSDkI00xhndhFonkEjVXTy58Dpia24LL9Qi+1AeMEuH29ahnlm0tsHKIMt7s6/d2KZ5TdNZnNXSUI1cbSZgpmYC9P8jgQRsKYCNh/kiSdsCzyQ17yj9j9fBCd+jF3vdkPuejHpZoBvyaohRiuczt6Zhuw6RTIkIwgYAVkEXChXYGwWwaNO+cFYxhvL1ZOtX4wsJtWJmeQSkeFR3a8uYC41nghX+jA6jZOllp4ToulispT9/FTTRmuV7xP9iPELhHn5UlAZ83rVMalarbwFvmAV+CGSimRt9PynWzheoVgjn3u/gkgECOKK9bm25aGiylM9md3MHgVqhHM+lffepspoNrZloOtjb8Aik5lKUVtBSsO8P4+WgDzHZo2p6tACm5ZJT71UiLpLJRsypYZ361d+e/B3nWCfA=
+  local_dir: build
+  repo: desotohs/hall-of-fame
+  on:
+    branch: master
