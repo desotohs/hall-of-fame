@@ -30,13 +30,23 @@ module.exports.init = (repo, window, callback) => {
                         let ws = new WebSocket(webSocketUrl);
                         ws.on("open", () => {
                             ws.send(`subscribe:repo:${repoId}:post-receive:${userId}`);
+                            console.log(`subscribe:repo:${repoId}:post-receive:${userId}`);
                             console.log("Listening for code changes...");
                         });
                         ws.on("message", data => {
-                            json = JSON.parse(data);
-                            console.log(json[1].reason);
+                            console.log(data);
                             electron.ipcMain.emit("github-cd-start");
                             childProcess.execFile(`${__dirname}/.reboot.sh`);
+                        });
+                        ws.on("close", (code, reason) => {
+                            console.log("Stopped listening for code changes.");
+                            if (reason) {
+                                console.log(reason);
+                            }
+                        });
+                        ws.on("error", err => {
+                            console.log("Stopped listening for code changes.");
+                            console.log(err);
                         });
                     });
                 });

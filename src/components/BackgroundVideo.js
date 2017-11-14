@@ -1,4 +1,5 @@
 import React from "react";
+import AppContainer from "../AppContainer";
 import VideoManager from "../database/VideoManager";
 import "./BackgroundVideo.css";
 
@@ -63,7 +64,7 @@ export default class BackgroundVideo extends React.Component {
     render() {
         return (
             <div className="background-video">
-                <canvas width={document.body.clientWidth} height={document.body.clientHeight} ref={el => this.canvas = el} />
+                <canvas width={AppContainer.isDisplay ? document.body.clientHeight : document.body.clientWidth} height={AppContainer.isDisplay ? document.body.clientWidth : document.body.clientHeight} ref={el => this.canvas = el} />
                 <video src={this.videoFile} loop muted ref={el => this.video = el} />
             </div>
         );

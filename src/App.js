@@ -1,5 +1,6 @@
 import React from "react";
 import {BrowserRouter, Switch, Route} from "react-router-dom";
+import AppContainer from "./AppContainer";
 import HomeScreen from "./pages/HomeScreen";
 import StateChampions from "./pages/StateChampions";
 import StateChampionClubs from "./pages/StateChampionClub";
@@ -13,7 +14,7 @@ import "./database/GDrive";
 export default class App extends React.Component {
     render() {
         return (
-            <div>
+            <AppContainer>
                 <BrowserRouter>
                     <Switch>
                         <Route path="/seniorphotos/:year" component={SeniorPhotosYear} />
@@ -24,7 +25,7 @@ export default class App extends React.Component {
                     </Switch>
                 </BrowserRouter>
                 <CDNotification />
-            </div>
+            </AppContainer>
         );
     }
 }

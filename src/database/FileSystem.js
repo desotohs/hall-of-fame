@@ -3,7 +3,7 @@ import gapi from "./GDrive";
 import DataBase from "./DataBase";
 
 const FolderMime = "application/vnd.google-apps.folder";
-const StorageTimeout = localStorage.fileSystemTimeout || 24 * 60 * 60 * 1000;
+const StorageTimeout = (window.localStorage && localStorage.fileSystemTimeout) || 24 * 60 * 60 * 1000;
 
 $(window).on("database.upgrade", () => {
     DataBase.createObjectStore("fs-ls", {

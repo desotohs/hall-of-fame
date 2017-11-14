@@ -1,0 +1,20 @@
+.app-container {
+    overflow: hidden;
+    width: 100vw;
+    height: 100vh;
+}
+.app-container-display {
+    width: 100vh;
+    height: 100vw;
+    transform: rotateZ(-90deg);
+    transform-origin: top right;
+    margin-left: -100vh;
+}
+.app-container-display * {
+    cursor: none !important;
+    font-family: "Kimberley" !important;
+}
+@font-face {
+    font-family: "Kimberley";
+    src: url("/kimberley.ttf") format("truetype");
+}

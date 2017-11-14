@@ -1,15 +1,17 @@
 import $ from "jquery";
 
-let req = indexedDB.open("HallOfFame", 1);
 let db;
-req.addEventListener("success", ev => {
-    db = ev.target.result;
-    $(window).trigger("database.load");
-});
-req.addEventListener("upgradeneeded", ev => {
-    db = ev.target.result;
-    $(window).trigger("database.upgrade");
-});
+if (window.indexedDB) {
+    let req = indexedDB.open("HallOfFame", 1);
+    req.addEventListener("success", ev => {
+        db = ev.target.result;
+        $(window).trigger("database.load");
+    });
+    req.addEventListener("upgradeneeded", ev => {
+        db = ev.target.result;
+        $(window).trigger("database.upgrade");
+    });
+}
 
 const DataBase = {
     "isConnected": () => !!db,
