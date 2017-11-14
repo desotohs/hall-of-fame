@@ -10,7 +10,7 @@
     transform-origin: top right;
     margin-left: -100vh;
 }
-.app-container-display * {
+.app-container * {
     cursor: none !important;
     font-family: "Kimberley" !important;
 }
