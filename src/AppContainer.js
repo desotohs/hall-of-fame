@@ -13,4 +13,4 @@ export default class AppContainer extends React.Component {
     }
 }
 
-AppContainer.isDisplay = localStorage.simulateDisplay || !!window.electron;
+AppContainer.isDisplay = (window.localStorage && localStorage.simulateDisplay) || !!window.electron;
