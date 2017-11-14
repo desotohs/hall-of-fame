@@ -1,6 +1,8 @@
+const connect = require("connect");
 const electron = require("electron");
 const nodegit = require("nodegit");
 const path = require("path");
+const serveStatic = require("serve-static");
 const url = require("url");
 const cd = require("./cd");
 
@@ -17,7 +19,7 @@ function createWindow () {
     });
     let error = false;
     cd.init("desotohs/hall-of-fame", mainWindow, () => {
-        mainWindow.loadURL(`file:///${__dirname}/build/index.html`);
+        mainWindow.loadURL("http://localhost:3000/index.html");
         mainWindow.webContents.once("did-finish-load", () => {
             mainWindow.show();
             mainWindow.setKiosk(true);
@@ -40,4 +42,8 @@ electron.app.on("activate", function () {
     if (mainWindow === null) {
         createWindow();
     }
+});
+
+connect().use(serveStatic(`${__dirname}/build`)).listen(3000, () => {
+    console.log("Internal webserver running on localhost:3000.");
 });
