@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -i
 
 git pull
 nvm use --delete-prefix node
