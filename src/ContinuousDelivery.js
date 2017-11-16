@@ -9,22 +9,26 @@ export default class ContinuousDelivery extends React.Component {
     }
 
     componentDidMount() {
-        this.socket = new WebSocket("wss://dhs-hall-of-fame.herokuapp.com");
-        this.socket.addEventListener("message", () => {
-            console.log("Updating...");
-            this.setState({
-                "updating": true
+        if (window.WebSocket) {
+            this.socket = new WebSocket("wss://dhs-hall-of-fame.herokuapp.com");
+            this.socket.addEventListener("message", () => {
+                console.log("Updating...");
+                this.setState({
+                    "updating": true
+                });
+                if (window.electron) {
+                    window.electron.ipcRenderer.send("github-update");
+                } else if (window.location.hostname !== "localhost") {
+                    window.location.reload();
+                }
             });
-            if (window.electron) {
-                window.electron.ipcRenderer.send("github-update");
-            } else if (window.location.hostname !== "localhost") {
-                window.location.reload();
-            }
-        });
+        }
     }
 
     componentWillUnmount() {
-        this.socket.close();
+        if (this.socket) {
+            this.socket.close();
+        }
     }
 
     render() {
