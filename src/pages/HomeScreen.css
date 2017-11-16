@@ -4,26 +4,25 @@
 
 .homescreen .container {
     position: fixed;
-    width: 100vw;
-    padding-left: 2vw;
-    padding-right: 2vw;
+    width: 100%;
+    padding-left: 1%;
+    padding-right: 1%;
     bottom: 0%;
 }
 
 .homescreen .control {
-    width: 30vw;
-    height: 30vw;
+    width: 30%;
+    height: 30%;
     border: 5px solid #FFFFFF;
     background-color: rgba(255, 255, 255, 0.125);
     border-radius: 20px;
-    color: #FFFFFF;
-    margin: 1vw;
+    margin: 1%;
     font-size: 3em;
     float: left;
 }
 
 .homescreen .iconImage {
-    width: 26vw;
+    width: 26%;
     position: relative;
     top: 50%;
     left: 50%;
