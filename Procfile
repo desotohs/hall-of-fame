@@ -1,1 +1,1 @@
-web: node cloud/index.js
+web: node cloud.js
