@@ -7,6 +7,7 @@ cache:
 script:
 - CI=false npm run build
 - npm test
+- curl "https://dhs-hall-of-fame.herokuapp.com/$SECRET_UPDATE_KEY"
 deploy:
   provider: pages
   skip_cleanup: true
@@ -16,3 +17,6 @@ deploy:
   repo: desotohs/hall-of-fame
   on:
     branch: master
+env:
+  global:
+    secure: KmQjxRPm6BAkEzMySWrp+scH5vTQQficOehoEHx3i2uh+FUFkCo0+/skW9AqosfUlr1Gk5jgn90QNtrYw9MHMA9BvszsjMARje3/7PEGQ7VqBXQFmlq7dGxmbTahvAQXYxXchcfM6ROoSpSelRVr3reAujFapwWPY5+TK90Iyl0pnvumTyE6uCVrcLhOTDDIG+IuKPclHqXhlkw4qQJiO4w8XpFfFH4r8R8pBaw63VeX3RfsJXUCvtiSZ14oYQf47fZWrO5FIgbJ1yEETSh24UFeqHcISZbZfLQ6czVFtnex4RcqioZ/DEJ7CCi7UEprE42E39sPkWPN3OdOGLxIrUaQp3VNs1CV8YPsIF7/SEpOPsBA38c+P10kL9Arwtf53Z72gFqMrQL+qYXLpdITfYIWSXcPyi83jx4R+WP8KztXMMy8oyPEE2vbna4i/ivhSIovEEiS0GxiLUhv26x6m+jwBaykqTJFL4Gi9cDIbE/1mQCMyefiAYLui1+6LI+cV6TKVlGSLSz4rt8Jc2tB5nucJZ26VseIyyKX6sDx3HdT+jGsXHMupsqhalHMcpL0jAQkEKMaK2ZYmE7Gqlf3iRRNCRyTTSQ2AFIsYB4LebHbHHil4QHu/X3MzV+IyRdvTihEN6MySCnQD3SVDNcR7P0KBMNVLHp20OacO+T2Ank=
