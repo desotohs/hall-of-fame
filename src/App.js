@@ -10,6 +10,7 @@ import "./App.css";
 import CDNotification from "./CDNotification";
 import "materialize-css/dist/css/materialize.css";
 import "./database/GDrive";
+import NavBar from "./NavBar";
 
 export default class App extends React.Component {
     render() {
@@ -25,6 +26,7 @@ export default class App extends React.Component {
                     </Switch>
                 </BrowserRouter>
                 <CDNotification />
+                <NavBar/>
             </AppContainer>
         );
     }
