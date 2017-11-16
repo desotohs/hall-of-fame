@@ -10,9 +10,13 @@
     transform-origin: top right;
     margin-left: -100vh;
 }
-.app-container * {
+
+.app-container-display * {
     cursor: none !important;
-    font-family: "Kimberley" !important;
+}
+
+.app-container * {
+    font-family: "Kimberley";
 }
 @font-face {
     font-family: "Kimberley";

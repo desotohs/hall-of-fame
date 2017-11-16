@@ -1,0 +1,19 @@
+.navbar .container{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+
+.navbar .container >* {
+    font-size: 45px;
+    line-height: 45px;
+    width: calc(100% / 3);
+    float: left;
+    text-align: center;
+    padding: 8px;
+}
+
+.navbar .container i {
+    font-size: 45px;
+    line-height: 45px;
+}
