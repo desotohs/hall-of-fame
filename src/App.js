@@ -7,7 +7,7 @@ import StateChampionClubs from "./pages/StateChampionClub";
 import SeniorPhotos from "./pages/SeniorPhotos";
 import SeniorPhotosYear from "./pages/SeniorPhotosYear";
 import "./App.css";
-import CDNotification from "./CDNotification";
+import ContinuousDelivery from "./ContinuousDelivery";
 import "materialize-css/dist/css/materialize.css";
 import "./database/GDrive";
 import NavBar from "./NavBar";
@@ -25,7 +25,7 @@ export default class App extends React.Component {
                         <Route component={HomeScreen} />
                     </Switch>
                 </BrowserRouter>
-                <CDNotification />
+                <ContinuousDelivery />
                 <NavBar/>
             </AppContainer>
         );

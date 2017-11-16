@@ -1,10 +1,10 @@
+const childProcess = require("child_process");
 const connect = require("connect");
 const electron = require("electron");
 const nodegit = require("nodegit");
 const path = require("path");
 const serveStatic = require("serve-static");
 const url = require("url");
-const cd = require("./cd");
 
 var mainWindow;
 
@@ -17,14 +17,11 @@ function createWindow () {
             "webSecurity": false
         }
     });
-    let error = false;
-    cd.init("desotohs/hall-of-fame", mainWindow, () => {
-        mainWindow.loadURL("http://localhost:3000/index.html");
-        mainWindow.webContents.once("did-finish-load", () => {
-            mainWindow.show();
-            mainWindow.setKiosk(true);
-        });
+    mainWindow.webContents.once("did-finish-load", () => {
+        mainWindow.show();
+        mainWindow.setKiosk(true);
     });
+    mainWindow.loadURL("http://localhost:3000/index.html");
     mainWindow.on("closed", function () {
         mainWindow = null;
     });
@@ -42,6 +39,10 @@ electron.app.on("activate", function () {
     if (mainWindow === null) {
         createWindow();
     }
+});
+
+electron.ipcMain.on("github-update", () => {
+    childProcess.execFile(`${__dirname}/.reboot.sh`);
 });
 
 connect().use(serveStatic(`${__dirname}/build`)).listen(3000, () => {
