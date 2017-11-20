@@ -10,7 +10,7 @@ export default class ContinuousDelivery extends React.Component {
 
     componentDidMount() {
         if (window.WebSocket) {
-            function init() {
+            let init = () => {
                 this.socket = new WebSocket("wss://dhs-hall-of-fame.herokuapp.com");
                 this.socket.addEventListener("message", () => {
                     console.log("Updating...");
@@ -24,7 +24,7 @@ export default class ContinuousDelivery extends React.Component {
                     }
                 });
                 this.socket.addEventListener("close", init);
-            }
+            };
             init();
         }
     }
