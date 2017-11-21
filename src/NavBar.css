@@ -4,9 +4,8 @@
     right: 0;
     bottom: 0;
     background-color: rgba(0, 0, 0, 0.95);
-    color: #FFFFFF;
 }
-.navbar div {
+.navbar > div {
     font-size: 45px;
     line-height: 45px;
     width: calc(100% / 3);
@@ -17,4 +16,11 @@
 .navbar i {
     font-size: 45px;
     line-height: 45px;
+    color: #FFFFFF !important;
+}
+.navbar-share {
+    text-align: center;
+}
+.navbar-share .qr {
+    display: inline-block;
 }

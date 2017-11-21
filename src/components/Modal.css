@@ -1,0 +1,12 @@
+.modal {
+    display: block;
+    top: 10%;
+    z-index: 1;
+}
+.modal-overlay {
+    display: block;
+    opacity: 0.5;
+    z-index: 0;
+    width: calc(100vw + 100vh) !important;
+    height: calc(100vw + 100vh) !important;
+}

@@ -17,16 +17,18 @@ export default class App extends React.Component {
         return (
             <AppContainer>
                 <BrowserRouter>
-                    <Switch>
-                        <Route path="/seniorphotos/:year" component={SeniorPhotosYear} />
-                        <Route path="/seniorphotos" component={SeniorPhotos} />
-                        <Route path="/statechampions/:club" component={StateChampionClubs} />
-                        <Route path="/statechampions" component={StateChampions} />
-                        <Route component={HomeScreen} />
-                    </Switch>
+                    <div className="fullscreen">
+                        <Switch>
+                            <Route path="/seniorphotos/:year" component={SeniorPhotosYear} />
+                            <Route path="/seniorphotos" component={SeniorPhotos} />
+                            <Route path="/statechampions/:club" component={StateChampionClubs} />
+                            <Route path="/statechampions" component={StateChampions} />
+                            <Route component={HomeScreen} />
+                        </Switch>
+                        <NavBar />
+                    </div>
                 </BrowserRouter>
                 <ContinuousDelivery />
-                <NavBar/>
             </AppContainer>
         );
     }
