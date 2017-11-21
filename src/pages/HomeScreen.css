@@ -1,31 +1,15 @@
-.homescreen .controls {
-    background-color: rgba(0, 0, 0, 0.25);
-}
-
-.homescreen .container {
-    position: fixed;
-    width: 100%;
-    height: 30%;
-    padding-left: 3%;
-    padding-right: 1%;
-    bottom: 3%;
-}
-
-.homescreen .control {
-    width: 30%;
-    height: 50%;
-    border: 5px solid #FFFFFF;
-    background-color: rgba(255, 255, 255, 0.125);
-    border-radius: 20px;
-    margin: 1%;
-    font-size: 3em;
-    float: left;
-}
-
-.homescreen .iconImage {
-    width: 70%;
+.homescreen {
     position: relative;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+}
+.homescreen .buttons {
+    position: absolute;
+    bottom: 0;
+    height: 50%;
+    width: 100%;
+}
+.homescreen .buttons img {
+    width: 100%;
+    height: 100%;
 }
