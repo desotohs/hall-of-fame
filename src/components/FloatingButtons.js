@@ -7,28 +7,31 @@ export default class FloatingButtons extends React.Component {
         this.state = {
             "size": 0,
             "columns": 1,
-            "centeringMargin": 0
+            "centeringMargin": 0,
+            "centeringWidth": 0
         };
         this.handleResize = this.handleResize.bind(this);
     }
 
     recalculateSize(props) {
-        let width = this.container.clientWidth;
-        let height = this.container.clientHeight;
-        let maxArea = width * height;
         let numBtns = React.Children.count(props.children);
-        let targetArea = maxArea / numBtns;
-        let targetHeight = Math.sqrt(targetArea);
-        let realHeight = height / Math.ceil(height / targetHeight);
-        let maxPerRow = Math.floor(width / realHeight);
-        let minRows = Math.ceil(numBtns / maxPerRow);
-        let maxColumns = Math.ceil(numBtns / minRows);
-        this.setState({
-            "size": realHeight - 2 * props.margin,
-            "columns": maxColumns,
-            "centeringMargin": (width - maxColumns * realHeight) / 2,
-            "centeringWidth": maxColumns * realHeight
-        });
+        if (numBtns > 0) {
+            let width = this.container.clientWidth;
+            let height = this.container.clientHeight;
+            let maxArea = width * height;
+            let targetArea = maxArea / numBtns;
+            let targetHeight = Math.sqrt(targetArea);
+            let realHeight = height / Math.ceil(height / targetHeight);
+            let maxPerRow = Math.floor(width / realHeight);
+            let minRows = Math.ceil(numBtns / maxPerRow);
+            let maxColumns = Math.ceil(numBtns / minRows);
+            this.setState({
+                "size": realHeight - 2 * props.margin,
+                "columns": maxColumns,
+                "centeringMargin": (width - maxColumns * realHeight) / 2,
+                "centeringWidth": maxColumns * realHeight
+            });
+        }
     }
 
     handleResize() {
