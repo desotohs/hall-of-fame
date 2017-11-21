@@ -2,13 +2,30 @@ import React from "react";
 import BackgroundVideo from "../components/BackgroundVideo";
 import { Link } from "react-router-dom";
 import IconManager from "../database/IconManager";
+import loadCSV from "../database/CSVFile";
 import FloatingButtons from "../components/FloatingButtons";
 import "./HomeScreen.css";
 
 export default class HomeScreen extends React.Component {
     constructor(props) {
         super(props);
-        new IconManager(this).get("DeSotoHS_PrimaryMark_ForWhiteBackgroundR", "testIcon");
+        this.state = {
+            "buttons": []
+        };
+        let icons = new IconManager(this);
+        loadCSV("/Table of Contents", csv => {
+            this.setState({
+                "buttons": csv.toArray().map(row => {
+                    let icon = row.get("Icon Name");
+                    icons.get(icon);
+                    return {
+                        "url": row.get("Page URL"),
+                        "name": row.get("Page Name"),
+                        "icon": icon
+                    };
+                })
+            });
+        });
     }
 
     render() {
@@ -16,36 +33,13 @@ export default class HomeScreen extends React.Component {
             <div className="homescreen">
                 <BackgroundVideo />
                 <FloatingButtons className="buttons" margin={20}>
-                    <div>
-                        <Link to="/hallOfFame">
-                            <img className="iconImage" src={this.icons.testIcon} alt="Hall of Fame" />
-                        </Link>
-                    </div>
-                    <div>
-                        <Link to="/stateChampions">
-                            <img className="iconImage" src={this.icons.testIcon} alt="State Champions" />
-                        </Link>
-                    </div>
-                    <div>
-                        <Link to="/allTimeRecords">
-                            <img className="iconImage" src={this.icons.testIcon} alt="All Time Records" />
-                        </Link>
-                    </div>
-                    <div>
-                        <Link to="/individualHonors">
-                            <img className="iconImage" src={this.icons.testIcon} alt="Individual Honors" />
-                        </Link>
-                    </div>
-                    <div>
-                        <Link to="/seniorPhotos">
-                            <img className="iconImage" src={this.icons.testIcon} alt="Senior Photos" />
-                        </Link>
-                    </div>
-                    <div>
-                        <Link to="/teams">
-                            <img className="iconImage" src={this.icons.testIcon} alt="Teams" />
-                        </Link>
-                    </div>
+                    {this.state.buttons.map((btn, i) => (
+                        <div key={`btn-${i}`}>
+                            <Link to={btn.url}>
+                                <img className="iconImage" src={this.icons[btn.icon]} alt={btn.name} />
+                            </Link>
+                        </div>
+                    ))}
                 </FloatingButtons>
             </div>
         );

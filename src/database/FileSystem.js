@@ -87,6 +87,25 @@ class FileSystemEntry {
             }
         })), a => a.map(o => new FileSystemEntry(o.id, o.name, o.path, o.type)), callback);
     }
+    
+    resolvePath(path, callback) {
+        let parts = path.split("/").filter(c => c.length > 0);
+        let func = (i, dir) => {
+            if (i < parts.length) {
+                dir.ls(dirs => {
+                    let subdir = dirs.find(d => d.name === parts[i]);
+                    if (subdir) {
+                        func(i + 1, subdir);
+                    } else {
+                        callback(null);
+                    }
+                });
+            } else {
+                callback(dir);
+            }
+        };
+        func(0, this);
+    }
 
     cat(mime, callback) {
         if (this.isFolder()) {
