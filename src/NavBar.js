@@ -12,22 +12,20 @@ export default class NavBar extends React.Component {
     render() {
         return (
             <div className="navbar">
-                <div className="container backgrey">
-                    <div className="foregreen" onClick={this.goBack}>
-                        <Icon name="chevron_left"/>
-                    </div>
-                    <div className="foregreen">
-                        <Icon name="radio_button_unchecked"/>
-                    </div>
-                    <div className="foregreen">
-                        <Icon name="share"/>
-                    </div>
+                <div onClick={this.goBack}>
+                    <Icon name="chevron_left" />
+                </div>
+                <div>
+                    <Icon name="radio_button_unchecked" />
+                </div>
+                <div>
+                    <Icon name="share" />
                 </div>
             </div>
         );
     }
     
-    goBack(){
+    goBack() {
         window.history.back();
     }
 }

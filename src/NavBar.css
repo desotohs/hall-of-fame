@@ -1,10 +1,12 @@
-.navbar .container{
+.navbar {
     position: absolute;
+    left: 0;
+    right: 0;
     bottom: 0;
-    width: 100%;
+    background-color: rgba(0, 0, 0, 0.95);
+    color: #FFFFFF;
 }
-
-.navbar .container >* {
+.navbar div {
     font-size: 45px;
     line-height: 45px;
     width: calc(100% / 3);
@@ -12,8 +14,7 @@
     text-align: center;
     padding: 8px;
 }
-
-.navbar .container i {
+.navbar i {
     font-size: 45px;
     line-height: 45px;
 }
