@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mlt LC_NUMERIC="en_US.UTF-8" version="6.5.0" title="Shotcut version 17.10.02" producer="main bin">
+<mlt LC_NUMERIC="en_US.UTF-8" version="6.5.0" title="Shotcut version 17.11.07" producer="main bin">
   <profile description="HD 1080p 25 fps" width="1920" height="1080" progressive="1" sample_aspect_num="1" sample_aspect_den="1" display_aspect_num="16" display_aspect_den="9" frame_rate_num="25" frame_rate_den="1" colorspace="709"/>
   <playlist id="main bin">
     <property name="xml_retain">1</property>
@@ -25,7 +25,7 @@
     <property name="seekable">1</property>
     <property name="loop">1</property>
     <property name="mlt_service">pixbuf</property>
-    <property name="shotcut:hash">1baa64d40ee62f98fbac8f68ce96b11a</property>
+    <property name="shotcut:hash">7d87a7e4379d46b61327b67b90d67edd</property>
     <property name="ignore_points">0</property>
     <property name="global_feed">1</property>
     <property name="xml">was here</property>
@@ -35,7 +35,7 @@
     <property name="shotcut:name">V1</property>
     <entry producer="producer0" in="00:00:00.000" out="00:00:00.000"/>
   </playlist>
-  <tractor id="tractor0" title="Shotcut version 17.10.02" global_feed="1" in="00:00:00.000" out="00:00:00.000">
+  <tractor id="tractor0" title="Shotcut version 17.11.07" global_feed="1" in="00:00:00.000" out="00:00:00.000">
     <property name="shotcut">1</property>
     <property name="shotcut:scaleFactor">27.01</property>
     <track producer="background"/>

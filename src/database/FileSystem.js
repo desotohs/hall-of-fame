@@ -49,25 +49,27 @@ class FileSystemEntry {
                 callback(old || []);
             }
         });
-        if (DataBase.isConnected()) {
-            let req = DataBase.transaction(tbl).objectStore(tbl).get(id);
-            req.addEventListener("success", () => {
-                if (req.result) {
-                    let data = req.result;
-                    const res = transformer(data.result);
-                    if (now < data.date + StorageTimeout) {
-                        callback(res);
+        DataBase.waitForConnectionOrFailure(() => {
+            if (DataBase.isConnected()) {
+                let req = DataBase.transaction(tbl).objectStore(tbl).get(id);
+                req.addEventListener("success", () => {
+                    if (req.result) {
+                        let data = req.result;
+                        const res = transformer(data.result);
+                        if (now < data.date + StorageTimeout) {
+                            callback(res);
+                        } else {
+                            error(res);
+                        }
                     } else {
-                        error(res);
+                        error();
                     }
-                } else {
-                    error();
-                }
-            });
-            req.addEventListener("error", error);
-        } else {
-            error();
-        }
+                });
+                req.addEventListener("error", error);
+            } else {
+                error();
+            }
+        });
     }
 
     ls(callback) {
