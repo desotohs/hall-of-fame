@@ -29,7 +29,7 @@ export default class NavBar extends React.Component {
 
     render() {
         let url;
-        if (window.location.host == "desotohs.github.io") {
+        if (window.location.host === "desotohs.github.io") {
             url = window.location.href;
         } else {
             url = `https://desotohs.github.io/hall-of-fame${window.location.pathname}`;
