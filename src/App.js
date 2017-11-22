@@ -1,28 +1,48 @@
 import React from "react";
 import {BrowserRouter, Switch, Route} from "react-router-dom";
+import loadCSV from "./database/CSVFile";
 import AppContainer from "./AppContainer";
-import HomeScreen from "./pages/HomeScreen";
-import StateChampions from "./pages/StateChampions";
-import StateChampionClubs from "./pages/StateChampionClub";
-import SeniorPhotos from "./pages/SeniorPhotos";
-import SeniorPhotosYear from "./pages/SeniorPhotosYear";
-import "./App.css";
 import ContinuousDelivery from "./ContinuousDelivery";
-import "materialize-css/dist/css/materialize.css";
-import "./database/GDrive";
 import NavBar from "./NavBar";
+import HomeScreen from "./pages/HomeScreen";
+import "materialize-css/dist/css/materialize.css";
+import "./App.css";
+
+import HallOfFame from "./pages/HallOfFame/Router";
+import SeniorPhotos from "./pages/SeniorPhotos/Router";
+const pageClasses = {
+    "HallOfFame": HallOfFame,
+    "SeniorPhotos": SeniorPhotos
+};
 
 export default class App extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            "routes": []
+        };
+        loadCSV("/Table of Contents", csv => {
+            this.setState({
+                "routes": csv.toArray().map(row => {
+                    let cls = pageClasses[row.get("Page Class")];
+                    if (cls) {
+                        return cls(row.get("Page URL"));
+                    } else {
+                        console.error(`Unknown page class '${row.get("Page Class")}'`);
+                        return null;
+                    }
+                })
+            });
+        });
+    }
+
     render() {
         return (
             <AppContainer>
                 <BrowserRouter>
                     <div className="fullscreen">
                         <Switch>
-                            <Route path="/seniorphotos/:year" component={SeniorPhotosYear} />
-                            <Route path="/seniorphotos" component={SeniorPhotos} />
-                            <Route path="/statechampions/:club" component={StateChampionClubs} />
-                            <Route path="/statechampions" component={StateChampions} />
+                            {this.state.routes}
                             <Route component={HomeScreen} />
                         </Switch>
                         <NavBar />

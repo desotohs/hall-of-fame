@@ -1,8 +1,8 @@
 import React from "react";
-import BackgroundVideo from "../components/BackgroundVideo";
-import "./SeniorPhotosYear.css";
+import BackgroundVideo from "../../components/BackgroundVideo";
+import "./Year.css";
 
-export default class StateChampions extends React.Component {
+export default class Year extends React.Component {
     render() {
         return (
             <div className="seniorphotosyear">

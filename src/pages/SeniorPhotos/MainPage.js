@@ -1,9 +1,9 @@
 import React from "react";
-import BackgroundVideo from "../components/BackgroundVideo";
-import { Link } from 'react-router-dom'
-import "./SeniorPhotos.css";
+import BackgroundVideo from "../../components/BackgroundVideo";
+import { Link } from "react-router-dom";
+import "./MainPage.css";
 
-export default class StateChampions extends React.Component {
+export default class MainPage extends React.Component {
     render() {
         return (
             <div className="seniorphotos">

@@ -1,10 +1,10 @@
 import React from "react";
-import BackgroundVideo from "../components/BackgroundVideo";
+import BackgroundVideo from "../../components/BackgroundVideo";
 import { Link } from "react-router-dom";
-import IconManager from "../database/IconManager";
-import "./StateChampions.css";
+import IconManager from "../../database/IconManager";
+import "./MainPage.css";
 
-export default class StateChampions extends React.Component {
+export default class MainPage extends React.Component {
     constructor(props) {
         super(props);
         const icons = new IconManager(this);

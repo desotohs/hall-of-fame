@@ -1,9 +1,9 @@
 import React from "react";
-import BackgroundVideo from "../components/BackgroundVideo";
-import IconManager from "../database/IconManager";
-import "./StateChampionClub.css";
+import BackgroundVideo from "../../components/BackgroundVideo";
+import IconManager from "../../database/IconManager";
+import "./Club.css";
 
-export default class StateChampions extends React.Component {
+export default class Club extends React.Component {
     constructor(props) {
         super(props);
         const icons = new IconManager(this);
