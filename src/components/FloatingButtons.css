@@ -3,8 +3,7 @@
 }
 .floating-buttons .centering-container {
     position: absolute;
-    top: 0;
-    height: 100%;
+    bottom: 0;
 }
 .floating-buttons .centering-container > .button {
     display: inline-block;

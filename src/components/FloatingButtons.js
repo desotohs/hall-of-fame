@@ -8,7 +8,8 @@ export default class FloatingButtons extends React.Component {
             "size": 0,
             "columns": 1,
             "centeringMargin": 0,
-            "centeringWidth": 0
+            "centeringWidth": 0,
+            "centeringHeight": 0
         };
         this.handleResize = this.handleResize.bind(this);
     }
@@ -29,7 +30,8 @@ export default class FloatingButtons extends React.Component {
                 "size": realHeight - 2 * props.margin,
                 "columns": maxColumns,
                 "centeringMargin": (width - maxColumns * realHeight) / 2,
-                "centeringWidth": maxColumns * realHeight
+                "centeringWidth": maxColumns * realHeight,
+                "centeringHeight": minRows * realHeight
             });
         }
     }
@@ -56,7 +58,8 @@ export default class FloatingButtons extends React.Component {
             <div className={`floating-buttons ${this.props.className}`} ref={el => this.container = el}>
                 <div className="centering-container" style={{
                     "marginLeft": this.state.centeringMargin,
-                    "width": this.state.centeringWidth
+                    "width": this.state.centeringWidth,
+                    "height": this.state.centeringHeight
                 }}>
                     {React.Children.map(this.props.children, (btn, i) => (
                         <div key={`btn-${i}`} className="button" style={{
