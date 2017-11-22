@@ -6,7 +6,19 @@ import "./BackgroundVideo.css";
 export default class BackgroundVideo extends React.Component {
     constructor(props) {
         super(props);
+        this.state = {
+            "width": 0,
+            "height": 0
+        };
         this.manager = new VideoManager(this);
+        this.recalculateSize = this.recalculateSize.bind(this);
+    }
+
+    recalculateSize() {
+        this.setState({
+            "width": AppContainer.isDisplay ? document.body.clientHeight : document.body.clientWidth,
+            "height": AppContainer.isDisplay ? document.body.clientWidth : document.body.clientHeight
+        });
     }
 
     componentDidMount() {
@@ -17,7 +29,6 @@ export default class BackgroundVideo extends React.Component {
         this.ctx = this.canvas.getContext("2d");
         this.video.addEventListener("play", () => {
             let videoAspect = 1920 / 1080;
-            let documentAspect = this.canvas.width / this.canvas.height;
             var renderedFrames = 0;
             this.iid = setInterval(() => {
                 if (this.video) {
@@ -28,7 +39,7 @@ export default class BackgroundVideo extends React.Component {
                         });
                     } else {
                         let x, y, width, height;
-                        if (videoAspect > documentAspect) {
+                        if (videoAspect > this.canvas.width / this.canvas.height) {
                             width = this.canvas.width;
                             height = this.canvas.width / videoAspect;
                             x = 0;
@@ -55,6 +66,8 @@ export default class BackgroundVideo extends React.Component {
             }
         });
         this.video.play();
+        window.addEventListener("resize", this.recalculateSize);
+        this.recalculateSize();
     }
 
     componentWillUnmount() {
@@ -62,12 +75,13 @@ export default class BackgroundVideo extends React.Component {
         if (localStorage.debugVideoFPS) {
             clearInterval(this.iid2);
         }
+        window.removeEventListener("resize", this.recalculateSize);
     }
 
     render() {
         return (
             <div className="background-video">
-                <canvas width={AppContainer.isDisplay ? document.body.clientHeight : document.body.clientWidth} height={AppContainer.isDisplay ? document.body.clientWidth : document.body.clientHeight} ref={el => this.canvas = el} />
+                <canvas width={this.state.width} height={this.state.height} ref={el => this.canvas = el} />
                 <video src={this.videoFile} muted ref={el => this.video = el} />
             </div>
         );
