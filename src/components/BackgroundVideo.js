@@ -7,13 +7,13 @@ export default class BackgroundVideo extends React.Component {
     constructor(props) {
         super(props);
         this.manager = new VideoManager(this);
-        this.manager.get(video => {
-            this.videoFile = video;
-            this.forceUpdate(() => this.video ? this.video.play() : 0);
-        });
     }
 
     componentDidMount() {
+        this.manager.get(video => {
+            this.videoFile = video;
+            this.forceUpdate(() => this.video.play());
+        });
         this.ctx = this.canvas.getContext("2d");
         this.video.addEventListener("play", () => {
             let videoAspect = 1920 / 1080;
