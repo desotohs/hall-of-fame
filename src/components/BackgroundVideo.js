@@ -21,8 +21,11 @@ export default class BackgroundVideo extends React.Component {
             var renderedFrames = 0;
             this.iid = setInterval(() => {
                 if (this.video) {
-                    if (this.video.isEnded) {
-                        this.manager.get();
+                    if (this.video.ended) {
+                        this.manager.get(video => {
+                            this.videoFile = video;
+                            this.forceUpdate(() => this.video.play());
+                        });
                     } else {
                         let x, y, width, height;
                         if (videoAspect > documentAspect) {
@@ -65,7 +68,7 @@ export default class BackgroundVideo extends React.Component {
         return (
             <div className="background-video">
                 <canvas width={AppContainer.isDisplay ? document.body.clientHeight : document.body.clientWidth} height={AppContainer.isDisplay ? document.body.clientWidth : document.body.clientHeight} ref={el => this.canvas = el} />
-                <video src={this.videoFile} loop muted ref={el => this.video = el} />
+                <video src={this.videoFile} muted ref={el => this.video = el} />
             </div>
         );
     }
