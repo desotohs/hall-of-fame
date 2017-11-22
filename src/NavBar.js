@@ -51,7 +51,7 @@ export default class NavBar extends React.Component {
                         <Icon name="chevron_left" />
                     </div>
                     <div>
-                        <Link to="/">
+                        <Link to={window.location.host === "desotohs.github.io" ? "/hall-of-fame/" : "/"}>
                             <Icon name="radio_button_unchecked" />
                         </Link>
                     </div>
