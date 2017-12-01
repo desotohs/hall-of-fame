@@ -14,6 +14,8 @@ const credentials = {
     ].join(" ")
 };
 
+let loaded = false;
+
 $(window).ready(() => {
     let script = document.createElement("script");
     script.async = true;
@@ -24,6 +26,7 @@ $(window).ready(() => {
             loaded = true;
             window.gapi.load("client:auth2", () => {
                 window.gapi.client.init(credentials).then(() => {
+                    loaded = true;
                     $(window).trigger("fs.ready");
                 });
             });
@@ -40,12 +43,12 @@ $(window).ready(() => {
 
 export default function gapi(cb) {
     if (cb) {
-        if (window.gapi) {
+        if (loaded) {
             cb(window.gapi);
         } else {
             $(window).on("fs.ready", () => cb(window.gapi));
         }
     } else {
-        return window.gapi;
+        return loaded ? window.gapi : null;
     }
 };
