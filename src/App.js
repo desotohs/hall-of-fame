@@ -5,6 +5,7 @@ import AppContainer from "./AppContainer";
 import ContinuousDelivery from "./ContinuousDelivery";
 import NavBar from "./NavBar";
 import HomeScreen from "./pages/HomeScreen";
+import LoadingPage from "./pages/LoadingPage";
 import "materialize-css/dist/css/materialize.css";
 import "./App.css";
 
@@ -39,6 +40,7 @@ export default class App extends React.Component {
     render() {
         return (
             <AppContainer>
+                <LoadingPage />
                 <BrowserRouter>
                     <div className="fullscreen">
                         <Switch>

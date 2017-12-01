@@ -4,6 +4,7 @@ import DataBase from "./DataBase";
 
 const FolderMime = "application/vnd.google-apps.folder";
 const StorageTimeout = (window.localStorage && localStorage.fileSystemTimeout) || 24 * 60 * 60 * 1000;
+let LogDownloads = (window.localStorage && localStorage.logDownloads === "true") ? n => console.log(`Running downloads: ${n}`) : () => {};
 var running = 0;
 
 $(window).on("database.upgrade", () => {
@@ -39,6 +40,7 @@ class FileSystemEntry {
             $(window).trigger("fs.download.start");
         }
         running++;
+        LogDownloads(running);
         const now = new Date().getTime();
         const error = old => provider(res => {
             if (res) {
@@ -50,12 +52,14 @@ class FileSystemEntry {
                     });
                 }
                 running--;
+                LogDownloads(running);
                 callback(res);
             } else {
                 running--;
+                LogDownloads(running);
                 callback(old || []);
             }
-            if(running === 0){
+            if (running === 0) {
                 $(window).trigger("fs.download.end");
             }
         });
@@ -68,6 +72,10 @@ class FileSystemEntry {
                         const res = transformer(data.result);
                         if (now < data.date + StorageTimeout) {
                             running--;
+                            LogDownloads(running);
+                            if (running === 0) {
+                                $(window).trigger("fs.download.end");
+                            }
                             callback(res);
                         } else {
                             error(res);
@@ -98,7 +106,7 @@ class FileSystemEntry {
             }
         })), a => a.map(o => new FileSystemEntry(o.id, o.name, o.path, o.type)), callback);
     }
-    
+
     resolvePath(path, callback) {
         let parts = path.split("/").filter(c => c.length > 0);
         let func = (i, dir) => {
