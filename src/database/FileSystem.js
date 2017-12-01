@@ -35,7 +35,9 @@ class FileSystemEntry {
     }
 
     cachedFunc(tbl, id, provider, transformer, callback) {
-        $(window).trigger("fs.download.start");
+        if(running === 0) {
+            $(window).trigger("fs.download.start");
+        }
         running++;
         const now = new Date().getTime();
         const error = old => provider(res => {
