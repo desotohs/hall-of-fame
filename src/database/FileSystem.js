@@ -4,6 +4,7 @@ import DataBase from "./DataBase";
 
 const FolderMime = "application/vnd.google-apps.folder";
 const StorageTimeout = (window.localStorage && localStorage.fileSystemTimeout) || 24 * 60 * 60 * 1000;
+var running = 0;
 
 $(window).on("database.upgrade", () => {
     DataBase.createObjectStore("fs-ls", {
@@ -34,6 +35,8 @@ class FileSystemEntry {
     }
 
     cachedFunc(tbl, id, provider, transformer, callback) {
+        $(window).trigger("fs.download.start");
+        running++;
         const now = new Date().getTime();
         const error = old => provider(res => {
             if (res) {
@@ -44,9 +47,14 @@ class FileSystemEntry {
                         "result": res
                     });
                 }
+                running--;
                 callback(res);
             } else {
+                running--;
                 callback(old || []);
+            }
+            if(running === 0){
+                $(window).trigger("fs.download.end");
             }
         });
         DataBase.waitForConnectionOrFailure(() => {
@@ -57,6 +65,7 @@ class FileSystemEntry {
                         let data = req.result;
                         const res = transformer(data.result);
                         if (now < data.date + StorageTimeout) {
+                            running--;
                             callback(res);
                         } else {
                             error(res);
