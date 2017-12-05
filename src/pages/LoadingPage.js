@@ -37,7 +37,7 @@ export default class LoadingPage extends React.Component {
     render() {
         return (
             <div className={`loading-page ${this.state.isLoading ? "active" : ""}`}>
-                <h1 />
+                <br /><br /><br /><br />
                 <div className="center">
                     <div className="preloader-wrapper big active">
                         <div className="spinner-layer spinner-blue-only">
