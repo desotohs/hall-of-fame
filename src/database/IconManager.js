@@ -36,18 +36,15 @@ export default class IconManager {
         };
         cb(loadingImage);
         const error = this.error.bind(this, name, cb);
-        FileSystem.ls(dirs =>
-            findRequired(dirs,
-                dir => dir.name === "Icons",
+        let path = `/Icons/${name}`;
+        let dir = path.replace(/\/[^/]+$/, "");
+        let filename = path.replace(/^.*\//, "");
+        FileSystem.resolvePath(dir, dir => dir.ls(icons =>
+            findRequired(icons,
+                icon => icon.name.startsWith(`${filename}.`),
                 error,
-                dir => dir.ls(icons =>
-                    findRequired(icons,
-                        icon => icon.name.startsWith(`${name}.`),
-                        error,
-                        icon => icon.cat(file => cb(`data:${file.mime};base64,${btoa(file.contents)}`))
-                    )
-                )
+                icon => icon.cat(file => cb(`data:${file.mime};base64,${btoa(file.contents)}`))
             )
-        );
+        ));
     }
 }
