@@ -2,6 +2,7 @@ import React from "react";
 import BackgroundVideo from "../../components/BackgroundVideo";
 import IconManager from "../../database/IconManager";
 import "./Club.css";
+import Header from "../../Header";
 
 export default class Club extends React.Component {
     constructor(props) {
@@ -13,9 +14,7 @@ export default class Club extends React.Component {
     render() {
         return (
             <div className="statechampionclub">
-                <h2 className="clubtitle"> {
-                    doTitle(this.props.match.params.club)
-                } </h2>
+                <Header pageTitle={doTitle(this.props.match.params.club)} />
                 <BackgroundVideo />
                 <img className="iconImage" src={this.icons.icon} alt={doTitle(this.props.match.params.club)} />
             </div>

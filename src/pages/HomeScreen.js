@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import IconManager from "../database/IconManager";
 import loadCSV from "../database/CSVFile";
 import FloatingButtons from "../components/FloatingButtons";
+import Header from "../Header";
 import "./HomeScreen.css";
 
 export default class HomeScreen extends React.Component {
@@ -31,6 +32,7 @@ export default class HomeScreen extends React.Component {
     render() {
         return (
             <div className="homescreen">
+                <Header pageTitle="De Soto Wildcats"/>
                 <BackgroundVideo />
                 <FloatingButtons className="buttons" margin={20}>
                     {this.state.buttons.map((btn, i) => (

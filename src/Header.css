@@ -1,0 +1,12 @@
+.header {
+    width: 100%;
+    top: 0;
+}
+
+.header .title {
+    font-size:100;
+    text-align: center;
+    padding: 20px;
+    width: 100%;
+    top: 0;
+}

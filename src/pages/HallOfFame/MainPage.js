@@ -2,6 +2,7 @@ import React from "react";
 import BackgroundVideo from "../../components/BackgroundVideo";
 import { Link } from "react-router-dom";
 import IconManager from "../../database/IconManager";
+import Header from "../../Header";
 import "./MainPage.css";
 
 export default class MainPage extends React.Component {
@@ -27,7 +28,7 @@ export default class MainPage extends React.Component {
         return (
             <div className="statechampions">
                 <BackgroundVideo />
-                <h2 className="foregreen header">State Champs</h2>
+                <Header pageTitle="State Champions" />
                 <div className="container">
                 <div className="control">
                     <Link to="/statechampions/band">
