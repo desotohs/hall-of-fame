@@ -177,3 +177,20 @@ $(window).on("fs.download.end", () => {
         iid = -2;
     }
 });
+
+window.clearFile = (name, mime) => {
+    FileSystem.resolvePath(name, file => {
+        if (file) {
+            DataBase.waitForConnectionOrFailure(() => {
+                if (DataBase.isConnected()) {
+                    let tbl = file.isFolder() ? "fs-ls" : "fs-cat";
+                    let req = DataBase.transaction(tbl, "readwrite").objectStore(tbl).delete(mime ? `${file.id}-${mime}` : file.id);
+                    req.addEventListener("success", () => console.log("File successfully deleted."));
+                    req.addEventListener("error", () => console.error("Unable to delete file!"));
+                }
+            });
+        } else {
+            console.warn("File is not downloaded.");
+        }
+    });
+};
