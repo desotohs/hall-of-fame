@@ -4,6 +4,7 @@ import DataBase from "./DataBase";
 
 const FolderMime = "application/vnd.google-apps.folder";
 const StorageTimeout = (window.localStorage && localStorage.fileSystemTimeout) || 24 * 60 * 60 * 1000;
+const DownloadTimeout = 10000;
 let LogDownloads = (window.localStorage && localStorage.logDownloads === "true") ? n => console.log(`Running downloads: ${n}`) : () => {};
 var running = 0;
 
@@ -39,6 +40,7 @@ class FileSystemEntry {
         if(running === 0) {
             $(window).trigger("fs.download.start");
         }
+        $(window).trigger("fs.download.change");
         running++;
         LogDownloads(running);
         const now = new Date().getTime();
@@ -62,6 +64,7 @@ class FileSystemEntry {
             if (running === 0) {
                 $(window).trigger("fs.download.end");
             }
+            $(window).trigger("fs.download.change");
         });
         DataBase.waitForConnectionOrFailure(() => {
             if (DataBase.isConnected()) {
@@ -76,6 +79,7 @@ class FileSystemEntry {
                             if (running === 0) {
                                 $(window).trigger("fs.download.end");
                             }
+                            $(window).trigger("fs.download.change");
                             callback(res);
                         } else {
                             error(res);
@@ -152,3 +156,24 @@ const FileSystem = new FileSystemEntry("0B7i9Z91xLt3RN1dsNVY5azBTc00", "/", "/",
 FileSystem.FolderMime = FolderMime;
 export default FileSystem;
 window.FileSystem = FileSystem;
+
+let iid = -1;
+$(window).on("fs.download.start", () => {
+    iid = -1;
+});
+$(window).on("fs.download.change", () => {
+    if (iid >= 0) {
+        clearTimeout(iid);
+    }
+    if (iid !== -2) {
+        iid = setTimeout(() => {
+            window.location.reload();
+        }, DownloadTimeout);
+    }
+});
+$(window).on("fs.download.end", () => {
+    if (iid >= 0) {
+        clearTimeout(iid);
+        iid = -2;
+    }
+});
