@@ -1,5 +1,5 @@
 .modal {
-    display: block;
+    display: block !important;
     top: 10%;
     z-index: 1;
 }
