@@ -12,7 +12,7 @@ export default class QRCodeView extends React.Component {
 
     render() {
         return (
-            <div ref={el => this.el = el} {...this.props} />
+            <div ref={el => this.el = el} className={this.props.className} />
         );
     }
 }
