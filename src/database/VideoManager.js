@@ -11,6 +11,10 @@ function findRequired(arr, predicate, error, success) {
     }
 }
 
+let currentVideo = null;
+let canDownloadNew = true;
+let downloadCallbacks = [];
+
 export default class VideoManager {
     constructor(component) {
         this.component = component;
@@ -31,17 +35,28 @@ export default class VideoManager {
                 this.component.forceUpdate();
             }
         };
-        cb(loadingVideo);
+        cb(currentVideo || loadingVideo);
         const error = this.error.bind(this, cb);
-        FileSystem.ls(dirs =>
-            findRequired(dirs,
-                dir => dir.name === "Videos",
-                error,
-                dir => dir.ls(videos => {
-                    let video = videos[Math.floor(Math.random() * videos.length)];
-                    video.cat(file => cb(`data:${file.mime};base64,${btoa(file.contents)}`));
-                })
-            )
-        );
+        if (canDownloadNew) {
+            canDownloadNew = false;
+            downloadCallbacks = [
+                cb
+            ];
+            FileSystem.resolvePath("/Videos/", dir => {
+                if (dir) {
+                    dir.ls(videos => {
+                        let video = videos[Math.floor(Math.random() * videos.length)];
+                        video.cat(file => {
+                            let url = `data:${file.mime};base64,${btoa(file.contents)}`;
+                            downloadCallbacks.forEach(c => c(url));
+                        });
+                    });
+                } else {
+                    error();
+                }
+            });
+        } else {
+            downloadCallbacks.push(cb);
+        }
     }
 }
