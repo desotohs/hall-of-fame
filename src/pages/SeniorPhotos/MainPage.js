@@ -1,6 +1,7 @@
 import React from "react";
 import BackgroundVideo from "../../components/BackgroundVideo";
 import { Link } from "react-router-dom";
+import Header from "../../Header";
 import "./MainPage.css";
 
 export default class MainPage extends React.Component {
@@ -8,7 +9,7 @@ export default class MainPage extends React.Component {
         return (
             <div className="seniorphotos">
                 <BackgroundVideo />
-                <h2 className="header foregreen"> Senior Photos </h2>
+                <Header pageTitle="Senior Photos"/>
                 <div className="container">
                     <Link to="/seniorphotos/2017">
                         <div className="control foregreen">
