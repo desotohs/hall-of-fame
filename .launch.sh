@@ -6,7 +6,6 @@ sudo X &
 export DISPLAY=:0
 sleep 1s
 xrandr -o left
-xinput set-prop 10 "Coordinate Transformation Matrix" 0 -1 1 1 0 0 0 0 1
 nvm use --delete-prefix node
 node proxy.js &
 sleep 1s
@@ -18,3 +17,4 @@ firefox "http://kpirankings.wixsite.com:3000/dhswildcats" &
     echo "release key 122"
     echo "exit"
 ) | java -cp AWTRobotShell/bin deibert.zach.awtrobotshell.Main
+xinput set-prop 10 "Coordinate Transformation Matrix" 0 -1 1 1 0 0 0 0 1
