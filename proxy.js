@@ -23,7 +23,7 @@ app.use(harmon([], [
         display: none;
     }
     * {
-        user-select: none;
+        -moz-user-select: none;
     }
 </style>
 <script type="text/javascript">
