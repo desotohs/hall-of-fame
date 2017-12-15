@@ -22,6 +22,9 @@ app.use(harmon([], [
     #WIX_ADS {
         display: none;
     }
+    * {
+        user-select: none;
+    }
 </style>
 <script type="text/javascript">
     setInterval(function() {
