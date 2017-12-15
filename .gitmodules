@@ -1,0 +1,3 @@
+[submodule "AWTRobotShell"]
+	path = AWTRobotShell
+	url = https://github.com/zachdeibert/AWTRobotShell
