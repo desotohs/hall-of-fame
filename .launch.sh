@@ -16,4 +16,4 @@ firefox "http://kpirankings.wixsite.com:3000/dhswildcats"
     sleep 0.2s
     echo "release key 122"
     echo "exit"
-) | java -cp bin deibert.zach.awtrobotshell.Main
+) | java -cp AWTRobotShell/bin deibert.zach.awtrobotshell.Main
