@@ -1,6 +1,7 @@
 using System;
 using System.Drawing;
 using Com.Latipium.Core;
+using Com.GitHub.DesotoHS.HallOfFame.Ui.Components;
 
 namespace Com.GitHub.DesotoHS.HallOfFame.Ui {
     [LatipiumLoader]
@@ -18,6 +19,9 @@ namespace Com.GitHub.DesotoHS.HallOfFame.Ui {
             CreateRect(win, Color.Red, 255, 0, 0, 0.5f, 0.5f);
             CreateRect(win, Color.Green, 255, 0, 0.6f, 0.8f, 0.3f);
             CreateRect(win, Color.Blue, 127, 0.2f, 0.1f, 0.5f, 0.7f);
+            Test test = new Test();
+            test.Bounds = new RectangleF(0.3f, 0.2f, 0.6f, 0.5f);
+            win.Add(test);
         }
     }
 }

@@ -4,7 +4,14 @@
     </PropertyGroup>
     <ItemGroup>
         <PackageReference Include="Com.Latipium.Core" Version="2.0.2" />
-        <PackageReference Include="GraphicsCore" Version="1.0.4" />
-        <PackageReference Include="GraphicsCore.Platforms.Desktop" Version="1.0.4" />
+        <PackageReference Include="GraphicsCore" Version="1.0.5" />
+        <PackageReference Include="GraphicsCore.Platforms.Desktop" Version="1.0.5" />
+        <PackageReference Include="Magick.NET-Q8-AnyCPU" Version="7.2.1" />
     </ItemGroup>
+    <Target Name="CopyNatives" AfterTargets="Publish">
+        <ItemGroup>
+            <PublishNatives Include="$(PublishDir)\runtimes\**" />
+        </ItemGroup>
+        <Copy SourceFiles="@(PublishNatives)" DestinationFolder="$(PublishDir)" />
+    </Target>
 </Project>

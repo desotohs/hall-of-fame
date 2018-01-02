@@ -18,6 +18,13 @@ namespace Com.GitHub.DesotoHS.HallOfFame.Ui {
         bool ChildRunning;
 
         [LatipiumExport]
+        public IOpenGLContext RawContext {
+            get {
+                return Gl;
+            }
+        }
+
+        [LatipiumExport]
         public event Action FrameStart;
 
         [LatipiumExport]
@@ -39,6 +46,26 @@ namespace Com.GitHub.DesotoHS.HallOfFame.Ui {
             Gl.Vertex2f(rectangle.Right, rectangle.Bottom);
             Gl.Vertex2f(rectangle.Right, rectangle.Top);
             Gl.End();
+        }
+
+        [LatipiumExport]
+        public void DrawImage(Image image, RectangleF rectangle) {
+            CheckChildAndThrow();
+            if (image.Disposed) {
+                throw new ObjectDisposedException(nameof(image));
+            }
+            using (Shaders.TextureShader.Context) {
+                Gl.Begin(GlPrimitiveType.Quads);
+                Gl.TexCoord2f(0, 1);
+                Gl.Vertex2f(rectangle.Left, rectangle.Top);
+                Gl.TexCoord2f(0, 0);
+                Gl.Vertex2f(rectangle.Left, rectangle.Bottom);
+                Gl.TexCoord2f(1, 0);
+                Gl.Vertex2f(rectangle.Right, rectangle.Bottom);
+                Gl.TexCoord2f(1, 1);
+                Gl.Vertex2f(rectangle.Right, rectangle.Top);
+                Gl.End();
+            }
         }
 
         [LatipiumExport]
