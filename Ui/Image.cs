@@ -16,6 +16,7 @@ namespace Com.GitHub.DesotoHS.HallOfFame.Ui {
             get;
             private set;
         }
+        public ImageContext Context => new ImageContext(this);
 
         protected virtual void Dispose(bool disposing) {
             if (!Disposed) {
@@ -29,8 +30,7 @@ namespace Com.GitHub.DesotoHS.HallOfFame.Ui {
             GC.SuppressFinalize(this);
         }
 
-        public Image(MagickImage image) {
-            byte[] data = image.GetPixels().ToByteArray(0, 0, image.Width, image.Height, "RGBA");
+        public Image(byte[] image, int width, int height, GlPixelFormat format) {
             uint[] textures = new uint[1];
             Graphics.RawContext.GenTextures(1, textures);
             TextureId = textures[0];
@@ -40,8 +40,12 @@ namespace Com.GitHub.DesotoHS.HallOfFame.Ui {
             Graphics.RawContext.TexParameteri(GlTextureTarget.Texture2d, GlTextureParameterName.TextureMinFilter, GL.LINEAR);
             Graphics.RawContext.TexParameteri(GlTextureTarget.Texture2d, GlTextureParameterName.TextureWrapS, GL.CLAMP_TO_EDGE);
             Graphics.RawContext.TexParameteri(GlTextureTarget.Texture2d, GlTextureParameterName.TextureWrapT, GL.CLAMP_TO_EDGE);
-            Graphics.RawContext.TexImage2D(GlTextureTarget.Texture2d, 0, GlInternalFormat.Rgba, image.Width, image.Height, 0, GlPixelFormat.Rgba, GlPixelType.UnsignedByte, data);
+            Graphics.RawContext.TexImage2D(GlTextureTarget.Texture2d, 0, (GlInternalFormat) format, width, height, 0, format, GlPixelType.UnsignedByte, image);
             Graphics.RawContext.GenerateMipmap(GlTextureTarget.Texture2d);
+            Graphics.RawContext.BindTexture(GlTextureTarget.Texture2d, 0);
+        }
+
+        public Image(MagickImage image) : this(image.GetPixels().ToByteArray(0, 0, image.Width, image.Height, "RGBA"), image.Width, image.Height, GlPixelFormat.Rgba) {
         }
 
         public Image(byte[] data) : this(new MagickImage(data)) {

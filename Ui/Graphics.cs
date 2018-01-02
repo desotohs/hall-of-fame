@@ -8,6 +8,7 @@ namespace Com.GitHub.DesotoHS.HallOfFame.Ui {
     [Application, LatipiumExportClass("Graphics")]
     public class Graphics : IApplication, IGraphics {
         static IOpenGLContext Gl;
+        static Size ViewportSize;
         static bool SingletonCreated;
 
         public string Name => "DHS Hall of Fame";
@@ -22,6 +23,12 @@ namespace Com.GitHub.DesotoHS.HallOfFame.Ui {
             get {
                 return Gl;
             }
+        }
+
+        [LatipiumExport]
+        public RectangleF GlobalPosition {
+            get;
+            private set;
         }
 
         [LatipiumExport]
@@ -54,18 +61,83 @@ namespace Com.GitHub.DesotoHS.HallOfFame.Ui {
             if (image.Disposed) {
                 throw new ObjectDisposedException(nameof(image));
             }
-            using (Shaders.TextureShader.Context) {
-                Gl.Begin(GlPrimitiveType.Quads);
-                Gl.TexCoord2f(0, 1);
-                Gl.Vertex2f(rectangle.Left, rectangle.Top);
-                Gl.TexCoord2f(0, 0);
-                Gl.Vertex2f(rectangle.Left, rectangle.Bottom);
-                Gl.TexCoord2f(1, 0);
-                Gl.Vertex2f(rectangle.Right, rectangle.Bottom);
-                Gl.TexCoord2f(1, 1);
-                Gl.Vertex2f(rectangle.Right, rectangle.Top);
-                Gl.End();
+            using (image.Context) {
+                using (Shaders.TextureShader.Context) {
+                    Gl.Begin(GlPrimitiveType.Quads);
+                    Gl.TexCoord2f(0, 1);
+                    Gl.Vertex2f(rectangle.Left, rectangle.Top);
+                    Gl.TexCoord2f(0, 0);
+                    Gl.Vertex2f(rectangle.Left, rectangle.Bottom);
+                    Gl.TexCoord2f(1, 0);
+                    Gl.Vertex2f(rectangle.Right, rectangle.Bottom);
+                    Gl.TexCoord2f(1, 1);
+                    Gl.Vertex2f(rectangle.Right, rectangle.Top);
+                    Gl.End();
+                }
             }
+        }
+
+        public static Point ConvertPoint(PointF point, IGraphics graphics) {
+            return new Point((int) ((graphics.GlobalPosition.Left + point.X * graphics.GlobalPosition.Width) * ViewportSize.Width),
+                             (int) ((graphics.GlobalPosition.Top + point.Y * graphics.GlobalPosition.Height) * ViewportSize.Height));
+        }
+
+        public static PointF ConvertPoint(Point point, IGraphics graphics) {
+            return new PointF(((((float) point.X) / (float) ViewportSize.Width) - graphics.GlobalPosition.Left) / graphics.GlobalPosition.Width,
+                              ((((float) point.Y) / (float) ViewportSize.Height) - graphics.GlobalPosition.Top) / graphics.GlobalPosition.Height);
+        }
+
+        public static Size ConvertSize(SizeF size, IGraphics graphics) {
+            return new Size((int) (size.Width * graphics.GlobalPosition.Width * (float) ViewportSize.Width),
+                            (int) (size.Height * graphics.GlobalPosition.Height * (float) ViewportSize.Height));
+        }
+
+        public static SizeF ConvertSize(Size size, IGraphics graphics) {
+            return new SizeF(((float) size.Width) / (graphics.GlobalPosition.Width * (float) ViewportSize.Width),
+                             ((float) size.Height) / (graphics.GlobalPosition.Height * (float) ViewportSize.Height));
+        }
+
+        public static Rectangle ConvertRectangle(RectangleF rectangle, IGraphics graphics) {
+            return new Rectangle(ConvertPoint(new PointF(rectangle.X, rectangle.Y), graphics), ConvertSize(new SizeF(rectangle.Width, rectangle.Height), graphics));
+        }
+
+        public static RectangleF ConvertRectangle(Rectangle rectangle, IGraphics graphics) {
+            return new RectangleF(ConvertPoint(new Point(rectangle.X, rectangle.Y), graphics), ConvertSize(new Size(rectangle.Width, rectangle.Height), graphics));
+        }
+
+        static RectangleF Scale(RectangleF rectangle, float factor) {
+            return new RectangleF(rectangle.X * factor, rectangle.Y * factor, rectangle.Width * factor, rectangle.Height * factor);
+        }
+
+        [LatipiumExport]
+        public RectangleF MeasureString(Font font, string str, float size = 1) {
+            return Scale(ConvertRectangle(font.MeasureString(str), this), size);
+        }
+
+        [LatipiumExport]
+        public void DrawString(Font font, string str, Color color, PointF origin, float size = 1) {
+            Gl.Color4ub(color.R, color.G, color.B, color.A);
+            font.DrawString(str, ConvertPoint(origin, this), (rect, image) => {
+                CheckChildAndThrow();
+                if (image.Disposed) {
+                    throw new ObjectDisposedException(nameof(image));
+                }
+                RectangleF rectangle = Scale(ConvertRectangle(rect, this), size);
+                using (image.Context) {
+                    using (Shaders.FontShader.Context) {
+                        Gl.Begin(GlPrimitiveType.Quads);
+                        Gl.TexCoord2f(0, 1);
+                        Gl.Vertex2f(rectangle.Left, rectangle.Top);
+                        Gl.TexCoord2f(0, 0);
+                        Gl.Vertex2f(rectangle.Left, rectangle.Bottom);
+                        Gl.TexCoord2f(1, 0);
+                        Gl.Vertex2f(rectangle.Right, rectangle.Bottom);
+                        Gl.TexCoord2f(1, 1);
+                        Gl.Vertex2f(rectangle.Right, rectangle.Top);
+                        Gl.End();
+                    }
+                }
+            });
         }
 
         [LatipiumExport]
@@ -74,7 +146,10 @@ namespace Com.GitHub.DesotoHS.HallOfFame.Ui {
             Gl.PushMatrix();
             Gl.Translatef(rectangle.Left, rectangle.Top, 0);
             Gl.Scalef(rectangle.Width, rectangle.Height, 0);
-            return new Graphics(this);
+            return new Graphics(this, new RectangleF(GlobalPosition.Left + rectangle.Left * GlobalPosition.Width,
+                                                     GlobalPosition.Top + rectangle.Top * GlobalPosition.Height,
+                                                     GlobalPosition.Width * rectangle.Width,
+                                                     GlobalPosition.Height * rectangle.Height));
         }
 
         protected virtual void Dispose(bool disposing) {
@@ -108,6 +183,10 @@ namespace Com.GitHub.DesotoHS.HallOfFame.Ui {
             Gl.Clear(GlClearBufferMask.ColorBufferBit);
             Gl.Translatef(-1, -1, 0);
             Gl.Scalef(2, 2, 0);
+            int[] viewport = new int[4];
+            Gl.GetIntegerv(GlGetPName.Viewport, viewport);
+            ViewportSize = new Size(viewport[2], viewport[3]);
+            Gl.Input.Window.ViewportResize += (w, h) => ViewportSize = new Size(w, h);
         }
 
         public void Stop() {
@@ -122,10 +201,12 @@ namespace Com.GitHub.DesotoHS.HallOfFame.Ui {
                     Gl.Frame += Frame;
                 }
             }
+            GlobalPosition = new RectangleF(0, 0, 1, 1);
         }
 
-        Graphics(Graphics parent) {
+        Graphics(Graphics parent, RectangleF globalPosition) {
             Parent = parent;
+            GlobalPosition = globalPosition;
         }
     }
 }
