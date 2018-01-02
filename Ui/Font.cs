@@ -32,7 +32,7 @@ namespace Com.GitHub.DesotoHS.HallOfFame.Ui {
             foreach (uint codePoint in codePoints) {
                 Glyph glyph = Glyphs[codePoint];
                 if (glyph.Image != null) {
-                    render(new Rectangle((x + glyph.BearingX).ToInt32(), (glyph.Height - glyph.BearingY).ToInt32() + location.Y, glyph.Width.ToInt32(), glyph.Height.ToInt32()), glyph.Image);
+                    render(new Rectangle((x + glyph.BearingX).ToInt32(), (glyph.BearingY - glyph.Height).ToInt32() + location.Y, glyph.Width.ToInt32(), glyph.Height.ToInt32()), glyph.Image);
                 }
                 x += glyph.Advance;
             }
