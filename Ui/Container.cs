@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Com.GitHub.DesotoHS.HallOfFame.Ui {
     public class Container : Component, IList<Component> {
@@ -31,6 +32,12 @@ namespace Com.GitHub.DesotoHS.HallOfFame.Ui {
         public override void Invalidate() {
             ActuallyDirty = true;
             base.Invalidate();
+            if (Components != null) {
+                // The Component constructor invalidates itself (before we can initialize the lists)
+                foreach (Container c in this.OfType<Container>()) {
+                    c.Invalidate();
+                }
+            }
         }
 
         public void InvalidateComponent(Component component) {

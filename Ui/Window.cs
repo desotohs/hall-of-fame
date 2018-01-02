@@ -8,6 +8,8 @@ namespace Com.GitHub.DesotoHS.HallOfFame.Ui {
 
         public Window() {
             Graphics.FrameStart += () => DrawAll(Graphics);
+            Graphics.RawContext.Input.Window.Resize += (w, h) => Invalidate();
+            Graphics.RawContext.Input.Window.ViewportResize += (w, h) => Invalidate();
         }
     }
 }
