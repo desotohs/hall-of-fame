@@ -59,8 +59,10 @@ namespace Com.GitHub.DesotoHS.HallOfFame.Ui {
         }
 
         public virtual void DrawAll(IGraphics g) {
-            DrawBackground(g);
-            Draw(g);
+            if (!Disposed) {
+                DrawBackground(g);
+                Draw(g);
+            }
         }
 
         public virtual void Invalidate() {
