@@ -26,6 +26,26 @@ namespace Com.GitHub.DesotoHS.HallOfFame.Ui {
             }
         }
         public event Action BoundsChanged;
+        public event Action<PointF> MouseClick;
+        public event Action<PointF> MouseDown;
+        public event Action<PointF> MouseUp;
+        public event Action<PointF> MouseDrag;
+
+        public void DispatchMouseClick(PointF point) {
+            MouseClick?.Invoke(point);
+        }
+
+        public void DispatchMouseDown(PointF point) {
+            MouseDown?.Invoke(point);
+        }
+
+        public void DispatchMouseUp(PointF point) {
+            MouseUp?.Invoke(point);
+        }
+
+        public void DispatchMouseDrag(PointF point) {
+            MouseDrag?.Invoke(point);
+        }
 
         public virtual void Draw(IGraphics g) {
         }

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 
 namespace Com.GitHub.DesotoHS.HallOfFame.Ui {
@@ -8,6 +9,39 @@ namespace Com.GitHub.DesotoHS.HallOfFame.Ui {
         List<Component> Components;
         List<Component> InvalidComponents;
         bool ActuallyDirty;
+        Component DragComponent;
+
+        void OnMouseClick(PointF point) {
+            Component c = ComponentAt(point);
+            if (c != null) {
+                c.DispatchMouseClick(new PointF(c.Bounds.Width * (point.X - c.Bounds.X), c.Bounds.Height * (point.Y - c.Bounds.Y)));
+            }
+        }
+
+        void OnMouseDown(PointF point) {
+            DragComponent = ComponentAt(point);
+            if (DragComponent != null) {
+                DragComponent.DispatchMouseDown(new PointF(DragComponent.Bounds.Width * (point.X - DragComponent.Bounds.X), DragComponent.Bounds.Height * (point.Y - DragComponent.Bounds.Y)));
+            }
+        }
+
+        void OnMouseDrag(PointF delta) {
+            Component c = ComponentAt(delta);
+            if (c != null) {
+                c.DispatchMouseDrag(new PointF(c.Bounds.Width * delta.X, c.Bounds.Height * delta.Y));
+            }
+        }
+
+        void OnMouseUp(PointF point) {
+            Component c = ComponentAt(point);
+            if (c != null) {
+                c.DispatchMouseUp(new PointF(c.Bounds.Width * (point.X - c.Bounds.X), c.Bounds.Height * (point.Y - c.Bounds.Y)));
+            }
+        }
+
+        public Component ComponentAt(PointF point) {
+            return Components.FirstOrDefault(c => c.Bounds.Contains(point));
+        }
 
         public override void Draw(IGraphics g) {
             foreach (Component c in (ActuallyDirty ? Components : InvalidComponents)) {
@@ -60,6 +94,10 @@ namespace Com.GitHub.DesotoHS.HallOfFame.Ui {
             Components = new List<Component>();
             InvalidComponents = new List<Component>();
             ActuallyDirty = true;
+            MouseClick += OnMouseClick;
+            MouseDown += OnMouseDown;
+            MouseDrag += OnMouseDrag;
+            MouseUp += OnMouseUp;
         }
 
 #region List Implementation
