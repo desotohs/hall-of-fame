@@ -4,7 +4,7 @@ using System.Drawing;
 namespace Com.GitHub.DesotoHS.HallOfFame.Ui.Components {
     public class Test : Component {
         Image image = new Image("boot.png");
-        Font font = new Font("Ubuntu-R.ttf");
+        Font font = new Font("MockResources/Ubuntu-R.ttf");
 
         public override void Draw(IGraphics g) {
             g.DrawImage(image, new RectangleF(0, 0, 1, 1));
