@@ -3,7 +3,7 @@ using System.Drawing;
 using Com.Latipium.Core;
 
 namespace Com.GitHub.DesotoHS.HallOfFame.Ui {
-    public class Component : LatipiumObject {
+    public class Component : LatipiumObject, IDisposable {
         public Color Background = Color.WhiteSmoke;
         Container parent;
         public virtual Container Parent {
@@ -24,6 +24,10 @@ namespace Com.GitHub.DesotoHS.HallOfFame.Ui {
                 BoundsChanged?.Invoke();
                 Invalidate();
             }
+        }
+        public bool Disposed {
+            get;
+            protected set;
         }
         public event Action BoundsChanged;
         public event Action<PointF> MouseClick;
@@ -61,6 +65,13 @@ namespace Com.GitHub.DesotoHS.HallOfFame.Ui {
 
         public virtual void Invalidate() {
             Parent?.InvalidateComponent(this);
+        }
+
+        protected virtual void Dispose(bool disposing) {
+        }
+
+        public void Dispose() {
+            Dispose(true);
         }
 
         public Component() {
