@@ -3,7 +3,7 @@
         <TargetFramework>netcoreapp2.0</TargetFramework>
     </PropertyGroup>
     <ItemGroup>
-        <PackageReference Include="Com.Latipium.Core" Version="2.0.2" />
+        <PackageReference Include="Com.Latipium.Core" Version="2.0.3" />
         <PackageReference Include="GraphicsCore" Version="1.0.5" />
         <PackageReference Include="GraphicsCore.Platforms.Desktop" Version="1.0.5" />
         <PackageReference Include="Magick.NET-Q8-AnyCPU" Version="7.2.1" />
