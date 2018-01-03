@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
+using Com.Latipium.Core;
 using Com.GitHub.DesotoHS.HallOfFame.Service.Model;
 
 namespace Com.GitHub.DesotoHS.HallOfFame.Service.Mock {
+    [LatipiumExportClass(ServicePriorities.Mock)]
     public class AllTimeRecordsService : IAllTimeRecordsService {
         static readonly ISportRecords[] AllTimeRecords = new ISportRecords[] {
             new SportRecords<object>("Football", new SportsRecord<object>("Rushing Yards", new ISportsRecordHolder[] {
