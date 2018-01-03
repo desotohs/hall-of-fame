@@ -17,10 +17,13 @@ namespace Com.GitHub.DesotoHS.HallOfFame.Service.Mock {
             new PageInfo<int>("Team Photos", PageType.Teams, File.ReadAllBytes("MockResources/Team Photos.png"), 5)
         };
 
+        [LatipiumExport]
         public IEnumerable<IPageInfo> Pages => pages;
 
+        [LatipiumExport]
         public string AppTitle => "DHS Hall of Fame";
 
+        [LatipiumExport]
         public byte[] HeaderImage => headerImage;
     }
 }

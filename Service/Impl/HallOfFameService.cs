@@ -6,6 +6,7 @@ using Com.Latipium.Core;
 namespace Com.GitHub.DesotoHS.HallOfFame.Service.Impl {
     [LatipiumExportClass(ServicePriorities.Impl)]
     public class HallOfFameService : IHallOfFameService {
+        [LatipiumExport]
         public IEnumerable<IHallOfFameEntry> GetEntries(IPageInfo page) {
             throw new NotImplementedException();
         }

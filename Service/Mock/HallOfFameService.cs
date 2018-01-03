@@ -16,6 +16,7 @@ namespace Com.GitHub.DesotoHS.HallOfFame.Service.Mock {
             new HallOfFameEntry<object>("Scholars Bowl", 2012, File.ReadAllBytes("MockResources/StateChampions2.jpg"), "Donec ultrices lorem ornare urna maximus, non efficitur mauris egestas. Morbi congue sagittis tempor. Nunc est enim, imperdiet et ex ut, vestibulum viverra dui. Aenean consequat tortor quis mollis bibendum. Fusce placerat ac nibh a auctor. Nullam fermentum massa et nisl vehicula, nec vehicula purus efficitur. Vestibulum faucibus in libero non tempor. Donec gravida justo id metus ullamcorper consequat. Quisque scelerisque lectus vitae molestie aliquet. Praesent tristique egestas nisi, a congue mauris mollis ut. Pellentesque interdum suscipit ornare. Morbi fermentum augue vel efficitur varius. Aliquam sed velit id ipsum volutpat placerat vitae non velit. In volutpat nisl at lacus ultricies, eget condimentum nibh placerat. Cras tincidunt, diam vitae tempor convallis, leo arcu tempus diam, at tempus diam massa quis felis. Fusce facilisis consectetur orci.")
         };
 
+        [LatipiumExport]
         public IEnumerable<IHallOfFameEntry> GetEntries(IPageInfo page) {
             switch (((PageInfo<int>) page).State) {
                 case 0:

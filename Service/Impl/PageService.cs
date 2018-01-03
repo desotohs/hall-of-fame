@@ -6,10 +6,13 @@ using Com.Latipium.Core;
 namespace Com.GitHub.DesotoHS.HallOfFame.Service.Impl {
     [LatipiumExportClass(ServicePriorities.Impl)]
     public class PageService : IPageService {
+        [LatipiumExport]
         public IEnumerable<IPageInfo> Pages => throw new NotImplementedException();
 
+        [LatipiumExport]
         public string AppTitle => throw new NotImplementedException();
 
+        [LatipiumExport]
         public byte[] HeaderImage => throw new NotImplementedException();
     }
 }

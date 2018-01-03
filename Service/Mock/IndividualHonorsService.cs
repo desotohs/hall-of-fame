@@ -13,6 +13,7 @@ namespace Com.GitHub.DesotoHS.HallOfFame.Service.Mock {
             new Tuple<int, IIndividualHonor>(2017, new IndividualHonor<object>("Jar Jar Binks", "Killing Snoke?", "Spoilers..."))
         }.GroupBy(t => t.Item1, t => t.Item2);
 
+        [LatipiumExport]
         public IEnumerable<IGrouping<int, IIndividualHonor>> GetHonors(IPageInfo page) {
             switch (((PageInfo<int>) page).State) {
                 default:

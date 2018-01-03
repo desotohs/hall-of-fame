@@ -49,6 +49,7 @@ namespace Com.GitHub.DesotoHS.HallOfFame.Service.Mock {
             }))
         };
 
+        [LatipiumExport]
         public IEnumerable<ISportRecords> GetRecords(IPageInfo page) {
             switch (((PageInfo<int>) page).State) {
                 case 2:
