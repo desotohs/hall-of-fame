@@ -31,18 +31,22 @@ namespace Com.GitHub.DesotoHS.HallOfFame.Ui {
         }
 
         public Image(byte[] image, int width, int height, GlPixelFormat format) {
-            uint[] textures = new uint[1];
-            Graphics.RawContext.GenTextures(1, textures);
-            TextureId = textures[0];
-            Graphics.RawContext.ActiveTexture(GlTextureUnit.Texture0);
-            Graphics.RawContext.BindTexture(GlTextureTarget.Texture2d, TextureId);
-            Graphics.RawContext.TexParameteri(GlTextureTarget.Texture2d, GlTextureParameterName.TextureMagFilter, GL.LINEAR);
-            Graphics.RawContext.TexParameteri(GlTextureTarget.Texture2d, GlTextureParameterName.TextureMinFilter, GL.LINEAR);
-            Graphics.RawContext.TexParameteri(GlTextureTarget.Texture2d, GlTextureParameterName.TextureWrapS, GL.CLAMP_TO_EDGE);
-            Graphics.RawContext.TexParameteri(GlTextureTarget.Texture2d, GlTextureParameterName.TextureWrapT, GL.CLAMP_TO_EDGE);
-            Graphics.RawContext.TexImage2D(GlTextureTarget.Texture2d, 0, (GlInternalFormat) format, width, height, 0, format, GlPixelType.UnsignedByte, image);
-            Graphics.RawContext.GenerateMipmap(GlTextureTarget.Texture2d);
-            Graphics.RawContext.BindTexture(GlTextureTarget.Texture2d, 0);
+            Graphics.SynchronizedTask(() => {
+                uint[] textures = new uint[1];
+                Graphics.RawContext.GenTextures(1, textures);
+                TextureId = textures[0];
+                using (Graphics.TextureLock) {
+                    Graphics.RawContext.ActiveTexture(GlTextureUnit.Texture0);
+                    Graphics.RawContext.BindTexture(GlTextureTarget.Texture2d, TextureId);
+                    Graphics.RawContext.TexParameteri(GlTextureTarget.Texture2d, GlTextureParameterName.TextureMagFilter, GL.LINEAR);
+                    Graphics.RawContext.TexParameteri(GlTextureTarget.Texture2d, GlTextureParameterName.TextureMinFilter, GL.LINEAR);
+                    Graphics.RawContext.TexParameteri(GlTextureTarget.Texture2d, GlTextureParameterName.TextureWrapS, GL.CLAMP_TO_EDGE);
+                    Graphics.RawContext.TexParameteri(GlTextureTarget.Texture2d, GlTextureParameterName.TextureWrapT, GL.CLAMP_TO_EDGE);
+                    Graphics.RawContext.TexImage2D(GlTextureTarget.Texture2d, 0, (GlInternalFormat) format, width, height, 0, format, GlPixelType.UnsignedByte, image);
+                    Graphics.RawContext.GenerateMipmap(GlTextureTarget.Texture2d);
+                    Graphics.RawContext.BindTexture(GlTextureTarget.Texture2d, 0);
+                }
+            });
         }
 
         public Image(MagickImage image) : this(image.GetPixels().ToByteArray(0, 0, image.Width, image.Height, "RGBA"), image.Width, image.Height, GlPixelFormat.Rgba) {

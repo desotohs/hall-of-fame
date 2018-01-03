@@ -2,13 +2,27 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
+using Com.Latipium.Core;
 using SharpFont;
+using Com.GitHub.DesotoHS.HallOfFame.Loading;
 
 namespace Com.GitHub.DesotoHS.HallOfFame.Ui {
-    public class Font : IDisposable {
+    public class Font : LatipiumObject, ILoadingTask, IDisposable {
         public static readonly Library Library = new Library();
         bool Disposed;
         Dictionary<uint, Glyph> Glyphs;
+        Face Face;
+        [LatipiumImport]
+        public ILoadingManager LoadingManager;
+        public int TotalTasks {
+            get;
+            private set;
+        }
+        public int CompletedTasks {
+            get;
+            private set;
+        }
+        public uint[] LoadOnly;
 
         public static uint[] StringToCodePoints(string str) {
             char[] chars = str.ToCharArray();
@@ -63,6 +77,25 @@ namespace Com.GitHub.DesotoHS.HallOfFame.Ui {
             return MeasureString(StringToCodePoints(str));
         }
 
+        public void Load() {
+            uint glyphIndex;
+            if (LoadOnly == null) {
+                uint codePoint = Face.GetFirstChar(out glyphIndex);
+                do {
+                    Glyphs[codePoint] = new Glyph(Face, glyphIndex);
+                    codePoint = Face.GetNextChar(codePoint, out glyphIndex);
+                    ++CompletedTasks;
+                } while (glyphIndex != 0);
+            } else {
+                TotalTasks = LoadOnly.Length;
+                foreach (uint codePoint in LoadOnly) {
+                    glyphIndex = Face.GetCharIndex(codePoint);
+                    Glyphs[codePoint] = new Glyph(Face, glyphIndex);
+                    ++CompletedTasks;
+                }
+            }
+        }
+
         protected virtual void Dispose(bool disposing) {
             if (!Disposed) {
                 if (disposing) {
@@ -79,14 +112,11 @@ namespace Com.GitHub.DesotoHS.HallOfFame.Ui {
         }
 
         public Font(Face font, float size = 300, uint dpi = 72) {
-            font.SetCharSize(0, size, dpi, dpi);
+            Face = font;
+            Face.SetCharSize(0, size, dpi, dpi);
             Glyphs = new Dictionary<uint, Glyph>();
-            uint glyphIndex;
-            uint codepoint = font.GetFirstChar(out glyphIndex);
-            do {
-                Glyphs[codepoint] = new Glyph(font, glyphIndex);
-                codepoint = font.GetNextChar(codepoint, out glyphIndex);
-            } while (glyphIndex != 0);
+            TotalTasks = Face.GlyphCount;
+            LoadingManager.AddTask(this);
         }
 
         public Font(string path, float size = 300, uint dpi = 72) : this(new Face(Library, path), size, dpi) {

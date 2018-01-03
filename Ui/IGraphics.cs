@@ -12,6 +12,22 @@ namespace Com.GitHub.DesotoHS.HallOfFame.Ui {
             get;
         }
 
+        IDisposable TextureLock {
+            get;
+        }
+
+        bool TextureLocked {
+            get;
+        }
+
+        IDisposable ShaderLock {
+            get;
+        }
+
+        bool ShaderLocked {
+            get;
+        }
+
         event Action FrameStart;
 
         event Action FrameEnd;
@@ -25,5 +41,7 @@ namespace Com.GitHub.DesotoHS.HallOfFame.Ui {
         void DrawString(Font font, string str, Color color, PointF origin, float size = 1);
 
         IGraphics CreateGraphics(RectangleF rectangle);
+
+        void SynchronizedTask(Action action);
     }
 }

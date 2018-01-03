@@ -1,8 +1,10 @@
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using Com.GitHub.ZachDeibert.GraphicsCore;
 using Com.Latipium.Core;
 using Com.Latipium.Core.Discovery;
+using Com.GitHub.DesotoHS.HallOfFame.Util;
 
 namespace Com.GitHub.DesotoHS.HallOfFame.Ui {
     [Application, LatipiumExportClass("Graphics")]
@@ -10,6 +12,8 @@ namespace Com.GitHub.DesotoHS.HallOfFame.Ui {
         static IOpenGLContext Gl;
         static Size ViewportSize;
         static bool SingletonCreated;
+        static Lock Texture = new Lock();
+        static Lock Shader = new Lock();
 
         public string Name => "DHS Hall of Fame";
 
@@ -17,6 +21,7 @@ namespace Com.GitHub.DesotoHS.HallOfFame.Ui {
         bool Disposed;
         Graphics Parent;
         bool ChildRunning;
+        List<Action> SynchronizedTasks;
 
         [LatipiumExport]
         public IOpenGLContext RawContext {
@@ -30,6 +35,20 @@ namespace Com.GitHub.DesotoHS.HallOfFame.Ui {
             get;
             private set;
         }
+
+
+
+        [LatipiumExport]
+        public IDisposable TextureLock => Texture.Context;
+
+        [LatipiumExport]
+        public bool TextureLocked => Texture.Locked;
+
+        [LatipiumExport]
+        public IDisposable ShaderLock => Shader.Context;
+
+        [LatipiumExport]
+        public bool ShaderLocked => Shader.Locked;
 
         [LatipiumExport]
         public event Action FrameStart;
@@ -61,18 +80,25 @@ namespace Com.GitHub.DesotoHS.HallOfFame.Ui {
             if (image.Disposed) {
                 throw new ObjectDisposedException(nameof(image));
             }
+            Action render = () => {
+                Gl.Begin(GlPrimitiveType.Quads);
+                Gl.TexCoord2f(0, 1);
+                Gl.Vertex2f(rectangle.Left, rectangle.Top);
+                Gl.TexCoord2f(0, 0);
+                Gl.Vertex2f(rectangle.Left, rectangle.Bottom);
+                Gl.TexCoord2f(1, 0);
+                Gl.Vertex2f(rectangle.Right, rectangle.Bottom);
+                Gl.TexCoord2f(1, 1);
+                Gl.Vertex2f(rectangle.Right, rectangle.Top);
+                Gl.End();
+            };
             using (image.Context) {
-                using (Shaders.TextureShader.Context) {
-                    Gl.Begin(GlPrimitiveType.Quads);
-                    Gl.TexCoord2f(0, 1);
-                    Gl.Vertex2f(rectangle.Left, rectangle.Top);
-                    Gl.TexCoord2f(0, 0);
-                    Gl.Vertex2f(rectangle.Left, rectangle.Bottom);
-                    Gl.TexCoord2f(1, 0);
-                    Gl.Vertex2f(rectangle.Right, rectangle.Bottom);
-                    Gl.TexCoord2f(1, 1);
-                    Gl.Vertex2f(rectangle.Right, rectangle.Top);
-                    Gl.End();
+                if (ShaderLocked) {
+                    render();
+                } else {
+                    using (Shaders.TextureShader.Context) {
+                        render();
+                    }
                 }
             }
         }
@@ -117,27 +143,18 @@ namespace Com.GitHub.DesotoHS.HallOfFame.Ui {
         [LatipiumExport]
         public void DrawString(Font font, string str, Color color, PointF origin, float size = 1) {
             Gl.Color4ub(color.R, color.G, color.B, color.A);
-            font.DrawString(str, ConvertPoint(origin, this), (rect, image) => {
-                CheckChildAndThrow();
-                if (image.Disposed) {
-                    throw new ObjectDisposedException(nameof(image));
+            Action render = () => {
+                font.DrawString(str, ConvertPoint(origin, this), (rect, image) => {
+                    DrawImage(image, Scale(ConvertRectangle(rect, this), size));
+                });
+            };
+            if (ShaderLocked) {
+                render();
+            } else {
+                using (Shaders.FontShader.Context) {
+                    render();
                 }
-                RectangleF rectangle = Scale(ConvertRectangle(rect, this), size);
-                using (image.Context) {
-                    using (Shaders.FontShader.Context) {
-                        Gl.Begin(GlPrimitiveType.Quads);
-                        Gl.TexCoord2f(0, 1);
-                        Gl.Vertex2f(rectangle.Left, rectangle.Top);
-                        Gl.TexCoord2f(0, 0);
-                        Gl.Vertex2f(rectangle.Left, rectangle.Bottom);
-                        Gl.TexCoord2f(1, 0);
-                        Gl.Vertex2f(rectangle.Right, rectangle.Bottom);
-                        Gl.TexCoord2f(1, 1);
-                        Gl.Vertex2f(rectangle.Right, rectangle.Top);
-                        Gl.End();
-                    }
-                }
-            });
+            }
         }
 
         [LatipiumExport]
@@ -171,7 +188,21 @@ namespace Com.GitHub.DesotoHS.HallOfFame.Ui {
 
         void Frame() {
             FrameStart?.Invoke();
+            List<Action> tasks = SynchronizedTasks;
+            SynchronizedTasks = new List<Action>();
+            foreach (Action task in tasks) {
+                task();
+            }
             FrameEnd?.Invoke();
+        }
+
+        [LatipiumExport]
+        public void SynchronizedTask(Action action) {
+            if (Parent == null) {
+                SynchronizedTasks.Add(action);
+            } else {
+                Parent.SynchronizedTask(action);
+            }
         }
 
         public void Start(IRenderContext ctx) {
@@ -199,6 +230,7 @@ namespace Com.GitHub.DesotoHS.HallOfFame.Ui {
                 } else {
                     SingletonCreated = true;
                     Gl.Frame += Frame;
+                    SynchronizedTasks = new List<Action>();
                 }
             }
             GlobalPosition = new RectangleF(0, 0, 1, 1);

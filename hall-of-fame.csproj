@@ -3,11 +3,17 @@
         <TargetFramework>netcoreapp2.0</TargetFramework>
     </PropertyGroup>
     <ItemGroup>
-        <PackageReference Include="Com.Latipium.Core" Version="2.0.3" />
+        <PackageReference Include="Com.Latipium.Core" Version="2.0.4" />
         <PackageReference Include="GraphicsCore" Version="1.0.5" />
         <PackageReference Include="GraphicsCore.Platforms.Desktop" Version="1.0.5" />
         <PackageReference Include="Magick.NET-Q8-AnyCPU" Version="7.2.1" />
         <PackageReference Include="SharpFontStandard" Version="4.0.1" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Remove="Ui\UbuntuMono-R.ttf" />
+        <Content Remove="Ui\Loading.png" />
+        <EmbeddedResource Include="Ui\UbuntuMono-R.ttf" />
+        <EmbeddedResource Include="Ui\Loading.png" />
     </ItemGroup>
     <Target Name="CopyNatives" AfterTargets="Publish">
         <ItemGroup>

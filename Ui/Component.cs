@@ -10,7 +10,7 @@ namespace Com.GitHub.DesotoHS.HallOfFame.Ui {
             get => parent;
             set {
                 parent = value;
-                if (!Parent.Contains(this)) {
+                if (Parent != null && !Parent.Contains(this)) {
                     Parent.Add(this);
                 }
                 Invalidate();

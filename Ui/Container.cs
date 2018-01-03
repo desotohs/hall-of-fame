@@ -44,9 +44,11 @@ namespace Com.GitHub.DesotoHS.HallOfFame.Ui {
         }
 
         public override void Draw(IGraphics g) {
-            foreach (Component c in (ActuallyDirty ? Components : InvalidComponents)) {
-                using (IGraphics g2 = g.CreateGraphics(c.Bounds)) {
-                    c.DrawAll(g2);
+            foreach (Component c in (ActuallyDirty ? Components : InvalidComponents).ToArray()) {
+                if (c != null) {
+                    using (IGraphics g2 = g.CreateGraphics(c.Bounds)) {
+                        c.DrawAll(g2);
+                    }
                 }
             }
             InvalidComponents.Clear();
@@ -57,8 +59,10 @@ namespace Com.GitHub.DesotoHS.HallOfFame.Ui {
             if (ActuallyDirty) {
                 base.DrawBackground(g);
             } else {
-                foreach (Component component in InvalidComponents) {
-                    g.FillRect(Background, component.Bounds);
+                foreach (Component component in InvalidComponents.ToArray()) {
+                    if (component != null) {
+                        g.FillRect(Background, component.Bounds);
+                    }
                 }
             }
         }
@@ -68,26 +72,32 @@ namespace Com.GitHub.DesotoHS.HallOfFame.Ui {
             base.Invalidate();
             if (Components != null) {
                 // The Component constructor invalidates itself (before we can initialize the lists)
-                foreach (Container c in this.OfType<Container>()) {
+                foreach (Container c in this.OfType<Container>().ToArray()) {
                     c.Invalidate();
                 }
             }
         }
 
         public void InvalidateComponent(Component component) {
+            if (component == null) {
+                throw new ArgumentNullException(nameof(component));
+            }
             if (Components.Contains(component) && !InvalidComponents.Contains(component)) {
                 InvalidComponents.Add(component);
                 base.Invalidate();
             }
         }
 
-        Component Register(Component c) {
+        void Register(Component c) {
             c.BoundsChanged += Invalidate;
-            return c;
+            c.Parent = this;
+            Invalidate();
         }
 
         void Deregister(Component c) {
             c.BoundsChanged -= Invalidate;
+            c.Parent = null;
+            Invalidate();
         }
 
         public Container() {
@@ -104,8 +114,8 @@ namespace Com.GitHub.DesotoHS.HallOfFame.Ui {
         public Component this[int index] {
             get => ((IList<Component>)Components)[index];
             set {
-                ((IList<Component>)Components)[index] = Register(value);
-                Invalidate();
+                ((IList<Component>)Components)[index] = value;
+                Register(value);
             }
         }
 
@@ -114,8 +124,8 @@ namespace Com.GitHub.DesotoHS.HallOfFame.Ui {
         public bool IsReadOnly => ((IList<Component>)Components).IsReadOnly;
 
         public void Add(Component item) {
-            ((IList<Component>)Components).Add(Register(item));
-            Invalidate();
+            ((IList<Component>)Components).Add(item);
+            Register(item);
         }
 
         public void Clear() {
@@ -123,7 +133,6 @@ namespace Com.GitHub.DesotoHS.HallOfFame.Ui {
                 Deregister(c);
             }
             ((IList<Component>)Components).Clear();
-            Invalidate();
         }
 
         public bool Contains(Component item) {
@@ -143,8 +152,8 @@ namespace Com.GitHub.DesotoHS.HallOfFame.Ui {
         }
 
         public void Insert(int index, Component item) {
-            ((IList<Component>)Components).Insert(index, Register(item));
-            Invalidate();
+            ((IList<Component>)Components).Insert(index, item);
+            Register(item);
         }
 
         public bool Remove(Component item) {
@@ -152,14 +161,12 @@ namespace Com.GitHub.DesotoHS.HallOfFame.Ui {
             if (res) {
                 Deregister(item);
             }
-            Invalidate();
             return res;
         }
 
         public void RemoveAt(int index) {
             Deregister(this[index]);
             ((IList<Component>)Components).RemoveAt(index);
-            Invalidate();
         }
 
         IEnumerator IEnumerable.GetEnumerator() {
