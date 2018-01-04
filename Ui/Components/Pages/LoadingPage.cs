@@ -31,7 +31,7 @@ namespace Com.GitHub.DesotoHS.HallOfFame.Ui.Components.Pages {
             int total = LoadingManager.TotalTasks;
             int finished = LoadingManager.FinishedTasks;
             float ratio = ((float) finished) / (float) total;
-            g.FillRect(Color.Red, new RectangleF(Padding, YMin, ratio * Width, Height));
+            g.FillRect(Color.Green, new RectangleF(Padding, YMin, ratio * Width, Height));
             string label = string.Format("{0} / {1}", finished, total);
             RectangleF bounds = g.MeasureString(Font, label);
             g.DrawString(Font, label, Color.White, new PointF(0.5f - bounds.Width / 2, 0.5f - bounds.Height / 2));
