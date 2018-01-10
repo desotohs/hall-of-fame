@@ -16,3 +16,8 @@ npm install
 
 sudo cp rc.local /etc/rc.local
 sudo cp xorg.conf /etc/X11/xorg.conf
+
+for profile in $(cat ~/.mozilla/firefox/profiles.ini | grep "^Path=" | cut -f2 -d=); do
+    mkdir -p "~/.mozilla/firefox/$profile/chrome"
+    cp userChrome.css "~/.mozilla/firefox/$profile/chrome/userChrome.css"
+done
