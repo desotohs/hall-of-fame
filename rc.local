@@ -1,0 +1,3 @@
+#!/bin/bash
+
+su -c /home/halloffame/hall-of-fame/launch.sh halloffame

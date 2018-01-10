@@ -13,3 +13,6 @@ javac -d ../bin $(find -name "*.java")
 cd ../..
 nvm use --delete-prefix node
 npm install
+
+sudo cp rc.local /etc/rc.local
+sudo cp xorg.conf /etc/X11/xorg.conf
