@@ -3,8 +3,8 @@ set -e
 cd "$(dirname "$0")"
 
 sudo apt update
-sudo apt install $(cat apt.txt)
-sudo apt upgrade
+sudo apt install -y $(cat apt.txt)
+sudo apt upgrade -y
 
 git submodule init
 git submodule update
