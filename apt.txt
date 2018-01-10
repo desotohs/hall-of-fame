@@ -1,0 +1,8 @@
+firefox-esr
+git
+openjdk-9-jdk
+openssh-server
+sudo
+xdotool
+xinput
+xorg
