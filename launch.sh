@@ -2,7 +2,7 @@
 set -e
 cd "$(dirname "$0")"
 
-sudo X &
+sudo X -s 0 dpms &
 export DISPLAY=:0
 sleep 1s
 setterm -blank 0 -powersave off -powerdown 0
