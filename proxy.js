@@ -26,19 +26,10 @@ app.use(harmon([], [
     * {
         -moz-user-select: none;
     }
+    #SITE_BACKGROUND, #SITE_ROOT {
+        top: 0 !important;
+    }
 </style>
-<script type="text/javascript">
-    setInterval(function() {
-        var iframes = document.querySelectorAll("iframe#i0xshmtviframe");
-        for (var i = 0; i < iframes.length; ++i) {
-            if (iframes[i].getAttribute("data-realHeight") != iframes[i].clientHeight) {
-                var h = iframes[i].clientHeight + 40;
-                iframes[i].style.height = "" + h + "px";
-                iframes[i].setAttribute("data-realHeight", h);
-            }
-        }
-    }, 1000);
-</script>
                 `);
                 this.queue(null);
             })).pipe(node.createWriteStream());
