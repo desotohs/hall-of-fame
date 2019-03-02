@@ -11,6 +11,7 @@ let proxy = httpProxy.createProxyServer({
 });
 proxy.on("proxyReq", req => {
     req.setHeader("Host", "kpirankings.wixsite.com");
+    req.setHeader("Accept-Encoding", "identity");
 });
 app.use(harmon([], [
     {
